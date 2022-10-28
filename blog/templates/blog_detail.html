@@ -1,0 +1,545 @@
+{% extends "nav.html" %}
+
+{% load static  %}
+
+{% block contenidoQueCambia %}
+{% load crispy_forms_tags %} 
+
+		<section class="single">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 sidebar" id="sidebar">
+						
+						<aside>
+							<h1 class="aside-title">Lugar de Espectaculo</h1>
+							{% for Teatros in post.teatro.all %}
+							<div class="aside-body">
+								
+								<article class="article">
+									
+									<div class="inner">
+										
+										<figure>
+											
+						  					<li class="active"><a href="#">{{ Teatros.name }}</a></li>
+											<p>Web: <a href="{{Teatros.pagina}}" target="_blank">{{Teatros.pagina}}</a></p>
+											<p>Direccion {{ Teatros.ubicacion }}</p>
+											<div class="details">
+												
+												<div class="detail">
+													<iframe src="{{Teatros.linkmaps}}" width="150" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+													<img src="{{ Teatros.imagen1.url }}" style="width: 100px; height:100px;">
+												</div>
+												<hr>
+												<div class="detail">
+													
+													<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
+											</div>
+											
+											</div>
+											
+										</figure>
+										
+												
+						  
+						  					
+											
+										
+									
+										
+									</div>
+									
+								</article>
+								{% endfor %}
+							
+							
+							{% for Cines in post.cine.all %}
+							<div class="aside-body">
+								
+								<article class="article">
+									
+									<div class="inner">
+										
+										<figure>
+											
+						  					<li class="active"><a href="#">{{ Cines.name }}</a></li>
+											<p>Web: <a href="{{Cines.pagina}}">{{Cines.pagina}}</a></p>
+											<p>Direccion {{ Cines.ubicacion }}</p>
+											<div class="details">
+												
+												<div class="detail">
+													<iframe src="{{Cines.linkmaps}}" width="150" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+													<img src="{{ Cines.imagen1.url }}" style="width: 100px; height:100px;">
+												</div>
+												<div class="detail">
+													<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
+											</div>
+											
+											</div>
+											
+										</figure>
+										
+												
+						  
+						  					
+											
+										
+									
+										
+									</div>
+									
+								</article>
+								{% endfor %}
+								<div class="line"></div>
+								<h1 class="aside-title">Ultimos posts</h1>
+								
+								{% for post in page_obj %}
+								<article class="article-mini">
+									<div class="inner">
+										<figure>
+											<a href="{% url 'blog_detail' post.pk %}">
+												<img src="{{ post.image.url }}">
+											</a>
+										</figure>
+										<div class="padding">
+											<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+											<div class="detail">
+												{% for category_post in post.categories.all %}
+												<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></div>
+												{% endfor %}
+												<div class="time">{{ post.created_on | timesince }}</div>
+											</div>
+										</div>
+									</div>
+								</article>
+								{% endfor %}
+							</div>
+						</aside>
+						<aside>
+							<div class="aside-body">
+								<form class="newsletter">
+									<div class="icon">
+										<i class="ion-ios-email-outline"></i>
+										<h1>Newsletter</h1>
+									</div>
+									<div class="input-group">
+										<input type="email" class="form-control email" placeholder="Tu correo">
+										<div class="input-group-btn">
+											<button class="btn btn-primary"><i class="ion-paper-airplane"></i></button>
+										</div>
+									</div>
+									<p>Suscribite para recibir las novedades y nuevos espectaculos</p>
+								</form>
+							</div>
+						</aside>
+					</div>
+					<div class="col-md-8">
+						<ol class="breadcrumb">
+						  <li><a href="#">Home</a></li>
+						  {% for category_post in post.categories.all %}
+						  <li class="active"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></li>
+						  
+						  {% endfor %}
+						 
+						</ol>
+						<article class="article main-article">
+							<header>
+								<h1>{{ post.title }}</h1>
+								<ul class="details">
+									<li>{{ post.created_on }}</li>
+									<li><a>Visitas </a>{{ post.visit_num }} </li>
+									<li>Autor <a href="#">{{ post.author.last_name }}</a></li>
+								</ul>
+							</header>
+							<div class="main">
+								<p> {{ post.short_desciption | safe }}</p>
+								<div class="featured">
+									<figure>
+										<img src="{{ post.image.url }}">
+										<figcaption>Imagen by Natali Birri</figcaption>
+									</figure>
+								</div>
+								{{ post.content | safe }}
+							</div>
+							<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
+							<div class="featured">
+								
+									{% load embed_video_tags %}
+									<iframe width="560" height="315" src="{{post.linkyoutube}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+									
+									
+						
+						</div>
+							<footer>
+								<div class="col">
+									<ul class="tags">
+										<li><a href="#">AGENDA</a></li>
+										<li><a href="#">TEATRO</a></li>
+										<li><a href="#">CINES</a></li>
+										<li><a href="#">COBERTURAS</a></li>
+										<li><a href="#">PROGRAMA</a></li>
+										<li><a href="#">ESTRENOS</a></li>
+									</ul>
+								</div>
+								<div class="col">
+									<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>{{ post.visit_num }}</div></a>
+								</div>
+							</footer>
+						</article>
+						<div class="sharing">
+						<div class="title"><i class="ion-android-share-alt"></i> Sharing is caring</div>
+							<ul class="social">
+								<li>
+									<a href="#" class="facebook">
+										<i class="ion-social-facebook"></i> Facebook
+									</a>
+								</li>
+								<li>
+									<a href="#" class="twitter">
+										<i class="ion-social-twitter"></i> Twitter
+									</a>
+								</li>
+								<li>
+									<a href="#" class="googleplus">
+										<i class="ion-social-googleplus"></i> Google+
+									</a>
+								</li>
+								<li>
+									<a href="#" class="linkedin">
+										<i class="ion-social-linkedin"></i> Linkedin
+									</a>
+								</li>
+								<li>
+									<a href="#" class="skype">
+										<i class="ion-ios-email-outline"></i> Email
+									</a>
+								</li>
+								<li class="count">
+									20
+									<div>Shares</div>
+								</li>
+							</ul>
+						</div>
+						<div class="line">
+							<div>Autor</div>
+						</div>
+						<div class="author">
+							<figure>
+								
+								
+								<img src="{{post.bio.avatar.url}}" alt="">
+								
+								
+							</figure>
+							<div class="details">
+								<div class="job">Periodista </div>
+								<h3 class="name">{{ post.author.first_name }} {{ post.author.last_name }}</h3>
+								<p>{{post.bio.bio}}</p>
+								<ul class="social trp sm">
+									<li>
+										<a href="#" class="facebook">
+											<svg><rect/></svg>
+											<i class="ion-social-facebook"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="twitter">
+											<svg><rect/></svg>
+											<i class="ion-social-twitter"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="youtube">
+											<svg><rect/></svg>
+											<i class="ion-social-youtube"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="googleplus">
+											<svg><rect/></svg>
+											<i class="ion-social-googleplus"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="line"><div>Dejanos tu comentario</div></div>
+						<div class="card-body">
+							<!-- Comment with nested comments -->
+							<h2>{{ comments.count }} Comentarios</h2>
+							
+							{% for comment in comments %}
+							
+							<div class="media mb-4" style="margin-top:40px">
+							  <img class="d-flex mr-3 rounded-circle" src="{% static 'images/avatar-2.svg'%}" width="70px" height="70px" alt="">
+							  <div class="media-body">
+								
+								<h5 class="mt-0">{{ comment.name }}</h5>
+								{{ comment.body|linebreaks }}
+								
+								
+						
+							  </div>
+							</div>
+						   
+						   {% empty %}
+							 <div class="card-body">
+							 <h3>&#128512;</h3>
+							 </div>
+							{% endfor %}
+						   </div>
+						
+						
+						   <div>
+							
+						</div>
+						
+						<hr>
+						</div>
+						
+						
+						<div class="card-body">
+						{% load crispy_forms_tags %} 
+						<!-- Dynamic Comments-->
+						<!-- Comments Form --> 
+						
+								<h5>Agregue un comentario</h5>
+								
+								   <form action="." method="post" style="margin-top: 1.3em">
+										 {{ comment_form | crispy }}
+										 {% csrf_token %}
+									   <button type="submit" class="btn btn-default">Agregar comentario</button>
+									   
+									</form>
+						</div>		
+						
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+	</div>
+        
+	
+
+		<!-- Start footer -->
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Super Cultural</h1>
+							<div class="block-body">
+								<figure class="foot-logo">
+									<img src="images/logo-light.png" class="img-responsive" alt="Logo">
+								</figure>
+								<p class="brand-description">
+									Magz is a HTML5 &amp; CSS3 magazine template based on Bootstrap 3.
+								</p>
+								<a href="page.html" class="btn btn-magz white">About Us <i class="ion-ios-arrow-thin-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Popular Tags <div class="right"><a href="#">See All <i class="ion-ios-arrow-thin-right"></i></a></div></h1>
+							<div class="block-body">
+								<ul class="tags">
+									<li><a href="#">HTML5</a></li>
+									<li><a href="#">CSS3</a></li>
+									<li><a href="#">Bootstrap 3</a></li>
+									<li><a href="#">Web Design</a></li>
+									<li><a href="#">Creative Mind</a></li>
+									<li><a href="#">Standing On The Train</a></li>
+									<li><a href="#">at 6.00PM</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="line"></div>
+						<div class="block">
+							<h1 class="block-title">Newsletter</h1>
+							<div class="block-body">
+								<p>Suscribite para recibir novedades y estrenos!</p>
+								<form class="newsletter">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="ion-ios-email-outline"></i>
+										</div>
+										<input type="email" class="form-control email" placeholder="Tu Correo">
+									</div>
+									<button class="btn btn-primary btn-block white">Subscribir</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Latest News</h1>
+							<div class="block-body">
+								<article class="article-mini">
+									<div class="inner">
+										<figure>
+											<a href="single.html">
+												<img src="images/news/img12.jpg" alt="Sample Article">
+											</a>
+										</figure>
+										<div class="padding">
+											<h1><a href="single.html">Donec consequat lorem quis augue pharetra</a></h1>
+										</div>
+									</div>
+								</article>
+								<article class="article-mini">
+									<div class="inner">
+										<figure>
+											<a href="single.html">
+												<img src="images/news/img14.jpg" alt="Sample Article">
+											</a>
+										</figure>
+										<div class="padding">
+											<h1><a href="single.html">eu dapibus risus aliquam etiam ut venenatis</a></h1>
+										</div>
+									</div>
+								</article>
+								<article class="article-mini">
+									<div class="inner">
+										<figure>
+											<a href="single.html">
+												<img src="images/news/img15.jpg" alt="Sample Article">
+											</a>
+										</figure>
+										<div class="padding">
+											<h1><a href="single.html">Nulla facilisis odio quis gravida vestibulum </a></h1>
+										</div>
+									</div>
+								</article>
+								<article class="article-mini">
+									<div class="inner">
+										<figure>
+											<a href="single.html">
+												<img src="images/news/img16.jpg" alt="Sample Article">
+											</a>
+										</figure>
+										<div class="padding">
+											<h1><a href="single.html">Proin venenatis pellentesque arcu vitae </a></h1>
+										</div>
+									</div>
+								</article>
+								<a href="#" class="btn btn-magz white btn-block">See All <i class="ion-ios-arrow-thin-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-12 col-sm-6">
+						<div class="block">
+							<h1 class="block-title">Follow Us</h1>
+							<div class="block-body">
+								<p>Follow us and stay in touch to get the latest news</p>
+								<ul class="social trp">
+									<li>
+										<a href="#" class="facebook">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-facebook"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="twitter">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-twitter-outline"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="youtube">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-youtube-outline"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="googleplus">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-googleplus"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="instagram">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-instagram-outline"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="tumblr">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-tumblr"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="dribbble">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-dribbble"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="linkedin">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-linkedin"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="skype">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-skype"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="rss">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-rss"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="line"></div>
+						<div class="block">
+							<div class="block-body no-margin">
+								<ul class="footer-nav-horizontal">
+									<li><a href="index.html">Home</a></li>
+									<li><a href="#">Partner</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="page.html">About</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="copyright">
+							COPYRIGHT &copy; MAGZ 2017. ALL RIGHT RESERVED.
+							<div>
+								Made with <i class="ion-heart"></i> by <a href="http://kodinger.com">Kodinger</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- End Footer -->
+
+		<!-- JS -->
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery.migrate.js"></script>
+		<script src="scripts/bootstrap/bootstrap.min.js"></script>
+		<script>var $target_end=$(".best-of-the-week");</script>
+		<script src="scripts/jquery-number/jquery.number.min.js"></script>
+		<script src="scripts/owlcarousel/dist/owl.carousel.min.js"></script>
+		<script src="scripts/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+		<script src="scripts/easescroll/jquery.easeScroll.js"></script>
+		<script src="scripts/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="scripts/toast/jquery.toast.min.js"></script>
+		<script src="js/demo.js"></script>
+		<script src="js/e-magz.js"></script>
+	</body>
+</html>
+
+{%endblock%}
