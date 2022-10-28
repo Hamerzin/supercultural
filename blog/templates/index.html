@@ -5,11 +5,11 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<meta name="description" content="Magz is a HTML5 & CSS3 magazine template is based on Bootstrap 3.">
+		<meta name="description" content="Super Cultural , la pagina del espectaculo de rosario">
 		<meta name="author" content="Kodinger">
 		<meta name="keyword" content="magz, html5, css3, template, magazine template">
 		<!-- Shareable -->
-		<meta property="og:title" content="HTML5 & CSS3 magazine template is based on Bootstrap 3" />
+		<meta property="og:title" content="Super cultural" />
 		<meta property="og:type" content="article" />
 		<meta property="og:url" content="http://github.com/nauvalazhar/Magz" />
 		<meta property="og:image" content="https://raw.githubusercontent.com/nauvalazhar/Magz/master/images/preview.png" />
@@ -307,58 +307,27 @@
 							</div>
 						</div>
 						<div class="owl-carousel owl-theme slide" id="featured">
+							{% for post in page_obj %}
 							<div class="item">
 								<article class="featured">
 									<div class="overlay"></div>
 									<figure>
-										<img src="{% static 'images/news/img04.jpg'%}" alt="Sample Article">
+										<img src="{{ post.image.url }}" alt="Sample Article">
 									</figure>
 									<div class="details">
-										<div class="category"><a href="category.html">Computer</a></div>
-										<h1><a href="single.html">Phasellus iaculis quam sed est elementum vel ornare ligula venenatis</a></h1>
+										{% for category_post in post.categories.all %}
+                            						
+													<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></div>
+									
+							{% endfor %}
+										
+										<h1><a href="single.html">{{ post.title }}</a></h1>
 										<div class="time">December 26, 2016</div>
 									</div>
 								</article>
 							</div>
-							<div class="item">
-								<article class="featured">
-									<div class="overlay"></div>
-									<figure>
-										<img src="{% static 'images/news/img14.jpg'%}" alt="Sample Article">
-									</figure>
-									<div class="details">
-										<div class="category"><a href="category.html">Travel</a></div>
-										<h1><a href="single.html">Class aptent taciti sociosqu ad litora torquent per conubia nostra</a></h1>
-										<div class="time">December 10, 2016</div>
-									</div>
-								</article>
-							</div>
-							<div class="item">
-								<article class="featured">
-									<div class="overlay"></div>
-									<figure>
-										<img src="{% static 'images/news/img13.jpg'%}" alt="Sample Article">
-									</figure>
-									<div class="details">
-										<div class="category"><a href="category.html">International</a></div>
-										<h1><a href="single.html">Maecenas accumsan tortor ut velit pharetra mollis</a></h1>
-										<div class="time">October 12, 2016</div>
-									</div>
-								</article>
-							</div>
-							<div class="item">
-								<article class="featured">
-									<div class="overlay"></div>
-									<figure>
-										<img src="{% static 'images/news/img05.jpg'%}" alt="Sample Article">
-									</figure>
-									<div class="details">
-										<div class="category"><a href="category.html">Lifestyle</a></div>
-										<h1><a href="single.html">Mauris elementum libero at pharetra auctor Fusce ullamcorper elit</a></h1>
-										<div class="time">November 27, 2016</div>
-									</div>
-								</article>
-							</div>
+							{%endfor%}
+							
 						</div>
 						<div class="line">
 							<div>Ultimos Eventos</div>

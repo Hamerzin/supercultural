@@ -5,6 +5,7 @@
 {% block contenidoQueCambia %}
 {% load crispy_forms_tags %} 
 
+
 		<section class="single">
 			<div class="container">
 				<div class="row">
@@ -152,6 +153,10 @@
 								</ul>
 							</header>
 							<div class="main">
+								{%if post.fecha and post.hora%}
+								<p>Fecha: {{post.fecha}}  </p>
+								<p>Hora:   {{post.hora}}</p>
+								{%endif%}
 								<p> {{ post.short_desciption | safe }}</p>
 								<div class="featured">
 									<figure>
@@ -162,15 +167,18 @@
 								{{ post.content | safe }}
 							</div>
 							<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
-							<div class="featured">
-								
-									{% load embed_video_tags %}
+							
+						
+							{% if post.linkyoutube %}	
+							<p>Disfruta un adelanto de video</p>
+						<div class="embed-container">
+							
+									
 									<iframe width="560" height="315" src="{{post.linkyoutube}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-									
-									
-						
+															
 						</div>
+						{%endif%}
 							<footer>
 								<div class="col">
 									<ul class="tags">
@@ -188,7 +196,7 @@
 							</footer>
 						</article>
 						<div class="sharing">
-						<div class="title"><i class="ion-android-share-alt"></i> Sharing is caring</div>
+						<div class="title"><i class="ion-android-share-alt"></i> Comparti!!</div>
 							<ul class="social">
 								<li>
 									<a href="#" class="facebook">
