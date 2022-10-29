@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from .forms import CommentForm
 from django.urls import reverse
-from blog.models import Post, Category_post, Comment
+from blog.models import Galeria, Post, Category_post, Comment
 from django.views.generic import ListView
 from django.db.models import Q
    
@@ -16,16 +16,24 @@ from django.db.models import Q
 # Create your views here.
 def index(request):
     posts = Post.objects.filter(status=1).order_by('-created_on')
-    
+    galeria = Galeria.objects.order_by('id')
 
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    paginador=Paginator(posts, 8)
+    num_pagina=request.GET.get('page')
+    ult_post= paginador.get_page(num_pagina)
+
     context = {
         'page_obj': page_obj,
+        'galeria': galeria,
+        'ult_post':ult_post,
     }
     return render(request, "index.html", context)
+
+
 def blog_index(request):
     posts = Post.objects.filter(status=1).order_by('-created_on')
    
