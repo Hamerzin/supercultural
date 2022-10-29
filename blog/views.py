@@ -17,6 +17,7 @@ from django.db.models import Q
 def index(request):
     posts = Post.objects.filter(status=1).order_by('-created_on')
     galeria = Galeria.objects.order_by('id')
+    posts2 = Post.objects.filter(status=1).order_by('-visit_num')
 
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
@@ -26,10 +27,16 @@ def index(request):
     num_pagina=request.GET.get('page')
     ult_post= paginador.get_page(num_pagina)
 
+    paginador2=Paginator(posts2, 8)
+    num_pagina2=request.GET.get('page')
+    ult_post2= paginador2.get_page(num_pagina2)
+
+
     context = {
         'page_obj': page_obj,
         'galeria': galeria,
         'ult_post':ult_post,
+        'ult_post2':ult_post2,
     }
     return render(request, "index.html", context)
 
@@ -124,4 +131,18 @@ def blog_detail(request, pk):
     }
 
     return render(request, "blog_detail.html", context)
+#Inicio buscador
 
+def buscar(request):
+      if request.method=="POST":
+            search = request.POST['search']
+            print(search)
+            if search !="":
+                  resultados="Resultados para:"
+                  prods = Post.objects.filter(Q(title__icontains=search)|Q(short_desciption__icontains=search)|Q(teatro__name__icontains=search)|Q(cine__name__icontains=search)|Q(categories__name__icontains=search)|Q(content__icontains=search))
+                  cantidad=(len(prods))                
+                  return render(request, "search.html", {"productos": prods, "nombre":search, "search":True, "resultados":resultados, "cantidad":cantidad} )
+                  
+            else:
+             output = "No ingresaste ningun dato"
+             return render(request, "search.html", {'mensaje':output})

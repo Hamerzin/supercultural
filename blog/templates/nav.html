@@ -40,17 +40,19 @@
 						<div class="col-md-3 col-sm-12">
 							<div class="brand">
 								<a href="{%url 'index'%}">
-									<img src="{% static 'images/logo2.jpg'%}" alt="Magz Logo">
+									<img src="{% static 'images/logo2.jpeg'%}" alt="Magz Logo">
 								</a>
 							</div>						
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<form class="search" autocomplete="off">
+							<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="POST"> {%csrf_token%} 
+							
 								<div class="form-group">
 									<div class="input-group">
-										<input type="text" name="q" class="form-control" placeholder="busque un espectaculo o teatros">									
+										
+										<input type="search" name="search" class="form-control" placeholder="busque un espectaculo o teatros" arial-label="search">									
 										<div class="input-group-btn">
-											<button class="btn btn-primary"><i class="ion-search"></i></button>
+											<button class="btn btn-primary" type="search"><i class="ion-search"></i></button>
 										</div>
 									</div>
 								</div>
@@ -82,7 +84,7 @@
 				<div class="container">
 					<div class="brand">
 						<a href="#">
-							<img src="{% static 'images/logo2.jpg'%}" alt="Magz Logo">
+							<img src="{% static 'images/logo2.jpeg'%}" alt="Magz Logo">
 						</a>
 					</div>
 					<div class="mobile-toggle">
@@ -126,42 +128,15 @@
 									</li>
 								</ul>
 							</li>
-							<li class="dropdown magz-dropdown"><a href="#">CATEGORIAS <i class="ion-ios-arrow-right"></i></a>
+							<li class="dropdown magz-dropdown"><a href="#">Categorias <i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
-									<li><a href="category.html">Internet</a></li>
-									<li class="dropdown magz-dropdown"><a href="category.html">Troubleshoot <i class="ion-ios-arrow-right"></i></a>
-										<ul class="dropdown-menu">
-											<li><a href="category.html">Software</a></li>
-											<li class="dropdown magz-dropdown"><a href="category.html">Hardware <i class="ion-ios-arrow-right"></i></a>
-												<ul class="dropdown-menu">
-													<li><a href="category.html">Main Board</a></li>
-													<li><a href="category.html">RAM</a></li>
-													<li><a href="category.html">Power Supply</a></li>
-												</ul>
-											</li>
-											<li><a href="category.html">Brainware</a>
-										</ul>
-									</li>
+									
+									{% for category_post in post.categories.all %}
+                            		<li><a href="category.html">Internet</a></li>
+																{% endfor %}
+									
 									<li><a href="category.html">Office</a></li>
-									<li class="dropdown magz-dropdown"><a href="#">Programming <i class="ion-ios-arrow-right"></i></a>
-										<ul class="dropdown-menu">
-											<li><a href="category.html">Web</a></li>
-											<li class="dropdown magz-dropdown"><a href="category.html">Mobile <i class="ion-ios-arrow-right"></i></a>
-												<ul class="dropdown-menu">
-													<li class="dropdown magz-dropdown"><a href="category.html">Hybrid <i class="ion-ios-arrow-right"></i></a>
-														<ul class="dropdown-menu">
-															<li><a href="#">Ionic Framework 1</a></li>
-															<li><a href="#">Ionic Framework 2</a></li>
-															<li><a href="#">Ionic Framework 3</a></li>
-															<li><a href="#">Framework 7</a></li>
-														</ul>
-													</li>
-													<li><a href="category.html">Native</a></li>
-												</ul>
-											</li>
-											<li><a href="category.html">Desktop</a></li>
-										</ul>
-									</li>
+									
 								</ul>
 							</li>
 							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">Mega Menu <i class="ion-ios-arrow-right"></i> <div class="badge">Hot</div></a>

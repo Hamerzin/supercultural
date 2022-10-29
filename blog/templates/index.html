@@ -7,12 +7,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<meta name="description" content="Super Cultural , la pagina del espectaculo de rosario">
 		<meta name="author" content="Kodinger">
-		<meta name="keyword" content="magz, html5, css3, template, magazine template">
+		<link href="{% static 'images/supercultural.png' %}" rel="icon">
+		<meta name="keyword" content="supercultural, super, cultural, espectaculos, rosario">
 		<!-- Shareable -->
 		<meta property="og:title" content="Super cultural" />
 		<meta property="og:type" content="article" />
-		<meta property="og:url" content="http://github.com/nauvalazhar/Magz" />
-		<meta property="og:image" content="https://raw.githubusercontent.com/nauvalazhar/Magz/master/images/preview.png" />
 		<title>Super Cultural </title>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="{% static 'scripts/bootstrap/bootstrap.min.css'%}">
@@ -40,17 +39,19 @@
 						<div class="col-md-3 col-sm-12">
 							<div class="brand">
 								<a href="{%url 'index'%}">
-									<img src="{% static 'images/logo2.jpg'%}" alt="Magz Logo">
+									<img src="{% static 'images/logo2.jpeg'%}" alt="Magz Logo">
 								</a>
 							</div>						
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<form class="search" autocomplete="off">
+							<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="POST"> {%csrf_token%} 
+							
 								<div class="form-group">
 									<div class="input-group">
-										<input type="text" name="q" class="form-control" placeholder="busque un espectaculo o teatros">									
+										
+										<input type="search" name="search" class="form-control" placeholder="busque un espectaculo o teatros" arial-label="search">									
 										<div class="input-group-btn">
-											<button class="btn btn-primary"><i class="ion-search"></i></button>
+											<button class="btn btn-primary" type="search"><i class="ion-search"></i></button>
 										</div>
 									</div>
 								</div>
@@ -82,7 +83,7 @@
 				<div class="container">
 					<div class="brand">
 						<a href="#">
-							<img src="{% static 'images/logo2.jpg'%}" alt="Magz Logo">
+							<img src="{% static 'images/logo2.jpeg'%}" alt="Magz Logo">
 						</a>
 					</div>
 					<div class="mobile-toggle">
@@ -434,84 +435,29 @@
 							</div>
 						</aside>
 						<aside>
-							<h1 class="aside-title">Popular <a href="#" class="all">See All <i class="ion-ios-arrow-right"></i></a></h1>
+							<h1 class="aside-title">Lo mas visto <a href="#" class="all">Ver todo <i class="ion-ios-arrow-right"></i></a></h1>
 							<div class="aside-body">
+								{% for post in ult_post2 %}
 								<article class="article-mini">
 									<div class="inner">
 										<figure>
-											<a href="single.html">
-												<img src="images/news/img07.jpg" alt="Sample Article">
+											<a href="{% url 'blog_detail' post.pk %}">
+												<img src="{{ post.image.url }}" alt="Sample Article">
 											</a>
 										</figure>
 										<div class="padding">
-											<h1><a href="single.html">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
+											<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>{{ post.visit_num }}</div></a>
 										</div>
 									</div>
 								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img14.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
-										</div>
-									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img09.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">Aliquam et metus convallis tincidunt velit ut rhoncus dolor</a></h1>
-										</div>
-									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img11.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">dui augue facilisis lacus fringilla pulvinar massa felis quis velit</a></h1>
-										</div>
-									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img06.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">neque est semper nulla, ac elementum risus quam a enim</a></h1>
-										</div>
-									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img03.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">Morbi vitae nisl ac mi luctus aliquet a vitae libero</a></h1>
-										</div>
-									</div>
-								</article>
+								{%endfor%}
+								
 							</div>
 						</aside>
 						<aside>
 							<div class="aside-body">
+								<img src=" {%static 'images/radios-m90vintage.png'%}" alt="">
 								<h4>Radio 94.1 en vivo</h4>
 								<audio src="https://player.m90radio.com:8021/mileniumrosario.mp3" controls="controls" type="audio/mpeg" preload="preload"></audio>s
 								<form class="newsletter">
@@ -520,12 +466,12 @@
 										<h1>Newsletter</h1>
 									</div>
 									<div class="input-group">
-										<input type="email" class="form-control email" placeholder="Your mail">
-										<div class="input-group-btn">
+										<input type="email" class="form-control email" placeholder="Tu correo">
+										<div class="input-group-btn">our mai
 											<button class="btn btn-primary"><i class="ion-paper-airplane"></i></button>
 										</div>
 									</div>
-									<p>By subscribing you will receive new articles in your email.</p>
+									<p>suscribiendote recibiras un novedades actualizadas.</p>
 								</form>
 							</div>
 						</aside>
@@ -546,7 +492,7 @@
 							</div>
 						</aside>
 						<aside id="sponsored">
-							<h1 class="aside-title">Sponsored</h1>
+							<h1 class="aside-title">Sponsors</h1>
 							<div class="aside-body">
 								<ul class="sponsored">
 									<li>
@@ -588,7 +534,7 @@
 							<h1 class="block-title">Super Cultural</h1>
 							<div class="block-body">
 								<figure class="foot-logo">
-									<img src="images/logo2.jpg" class="img-responsive" alt="Logo">
+									<img src="images/logo2.jpeg" class="img-responsive" alt="Logo">
 								</figure>
 								<p class="brand-description">
 									Magz is a HTML5 &amp; CSS3 magazine template based on Bootstrap 3.
