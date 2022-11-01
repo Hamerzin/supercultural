@@ -17,65 +17,30 @@
 							<div class="aside-body">
 								<p>Search with other keywords or use filters for more accurate results.</p>
 								
-								<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="POST"> {%csrf_token%} 
+								
+								<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="get"> {%csrf_token%} 
 							
 									<div class="form-group">
 										<div class="form-group"></div>
 										<div class="input-group">
 											
-											<input type="search" name="search" class="form-control" placeholder="busque un espectaculo o teatros" arial-label="search">									
+											<input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="busque un espectaculo o teatros" arial-label="search">									
 											<div class="input-group-btn">
 												<button class="btn btn-primary" type="search"><i class="ion-search"></i></button>
 											</div>
 										</div>
 									</div>
-								
-									
+													
 										
 									
 								</form>
 							</div>
-						</aside>
-						<aside>
-							<h2 class="aside-title">Filter</h2>
-							<div class="aside-body">
-								<form class="checkbox-group">
-									<div class="group-title">Date</div>
-									<div class="form-group">
-										<label><input type="radio" name="date" checked> Anytime</label>
-									</div>
-									<div class="form-group">
-										<label><input type="radio" name="date"> Today</label>
-									</div>
-									<div class="form-group">
-										<label><input type="radio" name="date"> Last Week</label>
-									</div>
-									<div class="form-group">
-										<label><input type="radio" name="date"> Last Month</label>
-									</div>
-									<br>
-									<div class="group-title">Categories</div>
-									<div class="form-group">
-										<label><input type="checkbox" name="category" checked> All Categories</label>
-									</div>
-									<div class="form-group">
-										<label><input type="checkbox" name="category"> Lifestyle</label>
-									</div>
-									<div class="form-group">
-										<label><input type="checkbox" name="category"> Travel</label>
-									</div>
-									<div class="form-group">
-										<label><input type="checkbox" name="category"> Computer</label>
-									</div>
-									<div class="form-group">
-										<label><input type="checkbox" name="category"> Film</label>
-									</div>
-									<div class="form-group">
-										<label><input type="checkbox" name="category"> Sport</label>
-									</div>
-								</form>
-							</div>
-						</aside>
+						
+							
+						
+					</aside>
+				
+						
 					</div>
 					<div class="col-md-9">
 						<div class="nav-tabs-group">
@@ -101,7 +66,7 @@
 							{{mensaje}}
 							
 							{%else%}
-							{%if not productos%}
+							{%if not posts%}
 							<p>No Existen resultados para su busqueda</p>
 							{%endif%}
 							{%endif%}
@@ -110,7 +75,7 @@
 							{%endif%}
 						</div>
 						<div class="row">
-							{%for pro in productos%}
+							{%for pro in posts%}
 							<article class="col-md-12 article-list">
 								<div class="inner">
 									<figure>
@@ -141,17 +106,38 @@
 							</article>
 							{%endfor%}
 		          <div class="col-md-12 text-center">
-		            <ul class="pagination">
-		              <li class="prev"><a href="#"><i class="ion-ios-arrow-left"></i></a></li>
-		              <li class="active"><a href="#">1</a></li>
-		              <li><a href="#">2</a></li>
-		              <li><a href="#">3</a></li>
-		              <li><a href="#">...</a></li>
-		              <li><a href="#">97</a></li>
-		              <li class="next"><a href="#"><i class="ion-ios-arrow-right"></i></a></li>
-		            </ul>
+					
+					
+					{% if posts.has_other_pages %}
+    <ul class="pagination">
+        {% if posts.has_previous %}
+            <li class="waves-effect"><a href="?page=
+                    {{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons">chevron_left</i></a></li>
+        {% else %}
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        {% endif %}
+        {% for num in posts.paginator.page_range %}
+            {% if posts.number == num %}
+                <li class="active"><a href="#!">{{ num }}</a></li>
+            {% else %}
+                <li class="waves-effect"><a
+                        href="?page={{ num }}{% if nombre %}&q={{ nombre }}{% endif %}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if posts.has_next %}
+            <li class="waves-effect"><a
+                    href="?page={{ posts.next_page_number }}{% if nombre %}&q={{ nombre }}{% endif %}"><i
+                    class="material-icons">chevron_right</i></a></li>
+        {% else %}
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+		            
 		            <div class="pagination-help-text">
-		            	Showing 8 results of 776 &mdash; Page 1
+
 		            </div>
 		          </div>
 						</div>

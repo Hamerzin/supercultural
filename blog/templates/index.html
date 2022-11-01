@@ -58,12 +58,11 @@
 								<div class="help-block">
 									<div>Popular:</div>
 									<ul>
-										<li><a href="#">Agenda</a></li>
-										<li><a href="#">Teatro</a></li>
-										<li><a href="#">Obras</a></li>
-										<li><a href="#">Recitales</a></li>
-										<li><a href="#">Entrevistas</a></li>
-										<li><a href="#">Coberturas</a></li>
+										{%for cat in categoria%}
+
+										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+										{%endfor%}
+										<li><a href="{% url 'contact' %}">Contacto</a></li>
 									</ul>
 								</div>
 							</form>								
@@ -115,7 +114,7 @@
 									<li><a href="single.html">Single</a></li>
 									<li><a href="page.html">Page</a></li>
 									<li><a href="search.html">Search</a></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li><a href="{%url 'contact'%}">Contacto</a></li>
 									<li class="dropdown magz-dropdown">
 										<a href="#">Error <i class="ion-ios-arrow-right"></i></a>
 										<ul class="dropdown-menu">
@@ -127,42 +126,14 @@
 									</li>
 								</ul>
 							</li>
-							<li class="dropdown magz-dropdown"><a href="#">Dropdown <i class="ion-ios-arrow-right"></i></a>
+							<li class="dropdown magz-dropdown"><a href="#">Categorias<i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
-									<li><a href="category.html">Internet</a></li>
-									<li class="dropdown magz-dropdown"><a href="category.html">Troubleshoot <i class="ion-ios-arrow-right"></i></a>
-										<ul class="dropdown-menu">
-											<li><a href="category.html">Software</a></li>
-											<li class="dropdown magz-dropdown"><a href="category.html">Hardware <i class="ion-ios-arrow-right"></i></a>
-												<ul class="dropdown-menu">
-													<li><a href="category.html">Main Board</a></li>
-													<li><a href="category.html">RAM</a></li>
-													<li><a href="category.html">Power Supply</a></li>
-												</ul>
-											</li>
-											<li><a href="category.html">Brainware</a>
-										</ul>
-									</li>
-									<li><a href="category.html">Office</a></li>
-									<li class="dropdown magz-dropdown"><a href="#">Programming <i class="ion-ios-arrow-right"></i></a>
-										<ul class="dropdown-menu">
-											<li><a href="category.html">Web</a></li>
-											<li class="dropdown magz-dropdown"><a href="category.html">Mobile <i class="ion-ios-arrow-right"></i></a>
-												<ul class="dropdown-menu">
-													<li class="dropdown magz-dropdown"><a href="category.html">Hybrid <i class="ion-ios-arrow-right"></i></a>
-														<ul class="dropdown-menu">
-															<li><a href="#">Ionic Framework 1</a></li>
-															<li><a href="#">Ionic Framework 2</a></li>
-															<li><a href="#">Ionic Framework 3</a></li>
-															<li><a href="#">Framework 7</a></li>
-														</ul>
-													</li>
-													<li><a href="category.html">Native</a></li>
-												</ul>
-											</li>
-											<li><a href="category.html">Desktop</a></li>
-										</ul>
-									</li>
+									{%for cat in categoria%}
+
+									<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+									{%endfor%}
+									
+									
 								</ul>
 							</li>
 							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">Mega Menu <i class="ion-ios-arrow-right"></i> <div class="badge">Hot</div></a>
@@ -305,7 +276,7 @@
 							</div>
 							<div class="owl-carousel owl-theme" id="headline">							
 								<div class="item">
-									<a href="#"><div class="badge">Novedades!</div> Escuchanos en FM vintage 94.1</a>
+									<a href="#"><div class="badge">Novedades!</div> Escuchanos en FM vintage 94.1, todos los miercoles de 20 a 22</a>
 									
 									</audio>
 								</div>
@@ -456,10 +427,12 @@
 							</div>
 						</aside>
 						<aside>
+						</aside>
+
 							<div class="aside-body">
-								<img src=" {%static 'images/radios-m90vintage.png'%}" alt="">
-								<h4>Radio 94.1 en vivo</h4>
-								<audio src="https://player.m90radio.com:8021/mileniumrosario.mp3" controls="controls" type="audio/mpeg" preload="preload"></audio>s
+								<aside>
+									<div id="cont_db0921d36ca9fd5c868ce8cc0c484e0b"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/db0921d36ca9fd5c868ce8cc0c484e0b"></script></div>
+							</aside>
 								<form class="newsletter">
 									<div class="icon">
 										<i class="ion-ios-email-outline"></i>
@@ -475,22 +448,15 @@
 								</form>
 							</div>
 						</aside>
-						
-						<aside>
-							<h1 class="aside-title">Videos
-								<div class="carousel-nav" id="video-list-nav">
-									<div class="prev"><i class="ion-ios-arrow-left"></i></div>
-									<div class="next"><i class="ion-ios-arrow-right"></i></div>
-								</div>
-							</h1>
-							<div class="aside-body">
-								<ul class="video-list" data-youtube='"carousel":true, "nav": "#video-list-nav"'>
-									<li><a data-youtube-id="SBjQ9tuuTJQ" data-action="magnific"></a></li>
-									<li><a data-youtube-id="9cVJr3eQfXc" data-action="magnific"></a></li>
-									<li><a data-youtube-id="DnGdoEa1tPg" data-action="magnific"></a></li>
-								</ul>
-							</div>
+						<div class="aside-body">
+						<aside >
+							
+								<h4 style="text-align: center;">Radio 94.1 en vivo</h4>
+								<img src=" {%static 'images/radios-m90vintage.png'%}" alt="" style='margin-left: auto; margin-right:auto ; display: block;'>
+								<audio src="https://player.m90radio.com:8021/mileniumrosario.mp3" controls="controls" type="audio/mpeg" preload="preload" style='margin-left: auto; margin-right:auto ; display: block;'></audio>
 						</aside>
+					</div>
+
 						<aside id="sponsored">
 							<h1 class="aside-title">Sponsors</h1>
 							<div class="aside-body">

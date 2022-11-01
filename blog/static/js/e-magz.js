@@ -167,26 +167,23 @@ $(function(){
 			if($this.find(".email").val().trim().length < 1) {
 				$this.find(".email").focus();
 			}else{
-				/* 
-				 * Add your ajax code
-				 * ------------------
-				 * For example:
-				 * $.ajax({
-				 * 		url: "subscribe_url",
-				 * 		type: "post",
-				 *  	data: $this.serialize(),
-				 * 		error: function() {
-				 * 			newsletter.error();
-				 * 		},	
-				 * 		beforeSend: function() {
-				 * 			newsletter.start();
-				 * 		},	
-				 * 		success: function() {
-				 * 			newsletter.end();
-				 * 		}
-				 * });
-				 });
-				*/
+				
+				$.ajax({
+						url: "subscribe_url",
+				 	type: "post",
+				 	data: $this.serialize(),
+				 		error: function() {
+				 		newsletter.error();
+				 		},	
+				 	beforeSend: function() {
+				 			newsletter.start();
+				 	},	
+				  		success: function() {
+				  			newsletter.end();
+				 		}
+				  });
+				 
+			
 
 				newsletter.start();
 

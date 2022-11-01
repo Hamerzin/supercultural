@@ -12,12 +12,18 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+
+
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+env = environ.Env()
+# Take environment variables from .env.dev file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +39,7 @@ SECRET_KEY = 'django-insecure-z6f2j=49h@ahdxv*7)ns-0^s39^sny_)ftn=sr*44=4nsg)v(i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["hamerzin.pythonanywhere.com", "127.0.0.1:8000","127.0.0.1"]
+ALLOWED_HOSTS = ["hamerzin.pythonanywhere.com", "127.0.0.1:8000","127.0.0.1","supercultural.com.ar/","https://www.supercultural.com.ar"]
 
 
 # Application definition
@@ -117,6 +123,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = env('FROM_EMAIL')
+EMAIL_HOST= env('EMAIL_HOST')
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_TLS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

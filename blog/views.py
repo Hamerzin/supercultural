@@ -1,15 +1,17 @@
 
-
-
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.core.mail import EmailMessage
+from .forms import ContactForm
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.core.paginator import Paginator
+
 from .forms import CommentForm
 from django.urls import reverse
 from blog.models import Galeria, Post, Category_post, Comment
 from django.views.generic import ListView
 from django.db.models import Q
+from datetime import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
    
 # Create your views here.
 
@@ -27,16 +29,17 @@ def index(request):
     num_pagina=request.GET.get('page')
     ult_post= paginador.get_page(num_pagina)
 
-    paginador2=Paginator(posts2, 8)
+    paginador2=Paginator(posts2, 4)
     num_pagina2=request.GET.get('page')
     ult_post2= paginador2.get_page(num_pagina2)
-
+    cat=Category_post.objects.all()
 
     context = {
         'page_obj': page_obj,
         'galeria': galeria,
         'ult_post':ult_post,
         'ult_post2':ult_post2,
+        "categoria":cat,
     }
     return render(request, "index.html", context)
 
@@ -134,15 +137,64 @@ def blog_detail(request, pk):
 #Inicio buscador
 
 def buscar(request):
-      if request.method=="POST":
-            search = request.POST['search']
-            print(search)
-            if search !="":
-                  resultados="Resultados para:"
-                  prods = Post.objects.filter(Q(title__icontains=search)|Q(short_desciption__icontains=search)|Q(teatro__name__icontains=search)|Q(cine__name__icontains=search)|Q(categories__name__icontains=search)|Q(content__icontains=search))
-                  cantidad=(len(prods))                
-                  return render(request, "search.html", {"productos": prods, "nombre":search, "search":True, "resultados":resultados, "cantidad":cantidad} )
+    posts_list = Post.objects.all()
+    query = request.GET.get('q')
+      
+    if query:
+            resultados="Resultados para:"
+            posts_list = Post.objects.filter(Q(title__icontains=query)|Q(short_desciption__icontains=query)|Q(teatro__name__icontains=query)|Q(cine__name__icontains=query)|Q(categories__name__icontains=query)|Q(content__icontains=query)).distinct()
+            cantidad=(len(posts_list))
+            paginator = Paginator(posts_list, 2)
+            page_number = request.GET.get('page')
+            try:
+                posts = paginator.page(page_number)
+            except PageNotAnInteger:
+                posts = paginator.page(1)
+            except EmptyPage:
+                posts = paginator.page(paginator.num_pages)
+           
+            context = {
+               'posts': posts,
+               "resultados":resultados,
+                "cantidad":cantidad,
+                "nombre":query,
+
+                }
+        
+            
+            return render (request, "search.html",  context )
                   
-            else:
-             output = "No ingresaste ningun dato"
-             return render(request, "search.html", {'mensaje':output})
+        
+
+
+#seccion de contacto
+def contact(request):
+    contact_form = ContactForm()
+    myDate = datetime.now()
+    if request.method == "POST":
+        contact_form = ContactForm(data=request.POST)
+        if contact_form.is_valid():
+            name = request.POST.get('name', '')
+            email = request.POST.get('email', '')
+            content = request.POST.get('content', '')
+            subject = request.POST.get('subject', '')
+
+          
+            email = EmailMessage(
+                "Super Cultural: Nuevo mensaje de contacto",
+                "Hola Recibiste un mensaje desde el \nformulario de contacto De: {}\n Email {}\n Asunto: {} \nEscribió:\n\n{}".format(name, email, subject, content),
+                "contacto@supercultural.com.ar",
+                ["natalibirri@gmail.com"],
+                reply_to=[email]
+            )
+
+            # Lo enviamos y redireccionamos
+            try:
+                email.send()
+                # Todo ha ido bien, redireccionamos a OK
+                return redirect(reverse('contact')+"?ok")
+            except:
+                # Algo no ha ido bien, redireccionamos a FAIL
+                return redirect(reverse('contact')+"?fail")
+    
+    return render(request, "contact.html",{'form':contact_form, 'myDate':myDate})
