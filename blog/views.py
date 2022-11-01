@@ -18,7 +18,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 def index(request):
     posts = Post.objects.filter(status=1).order_by('-created_on')
-    galeria = Galeria.objects.order_by('id')
+    galeria2 = Galeria.objects.order_by('id')
     posts2 = Post.objects.filter(status=1).order_by('-visit_num')
 
     paginator = Paginator(posts, 3)
@@ -33,6 +33,12 @@ def index(request):
     num_pagina2=request.GET.get('page')
     ult_post2= paginador2.get_page(num_pagina2)
     cat=Category_post.objects.all()
+    
+    paginadorgal=Paginator(galeria2, 12)
+    num_gal=request.GET.get('1')
+    galeria=paginadorgal.get_page(num_gal)
+    
+
 
     context = {
         'page_obj': page_obj,
@@ -49,7 +55,7 @@ def blog_index(request):
    
     
 
-    paginator = Paginator(posts, 3)
+    paginator = Paginator(posts, 15)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     

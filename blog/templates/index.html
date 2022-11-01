@@ -128,6 +128,7 @@
 							</li>
 							<li class="dropdown magz-dropdown"><a href="#">Categorias<i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
+									<li><a href="{% url 'todo' %}">Todo</a></li>
 									{%for cat in categoria%}
 
 									<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
