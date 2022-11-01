@@ -69,10 +69,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-       super(Post, self).save(*args, **kwargs)
-       imagen = imagen.open(self.image.path)
-       imagen.save(self.image.path,quality=20,optimize=True)
+  
 
 
 

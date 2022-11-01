@@ -55,12 +55,22 @@ def blog_index(request):
    
     
 
-    paginator = Paginator(posts, 15)
+    paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    paginator2 = Paginator(posts, 15)
+    page_number2 = request.GET.get('page')
+    page_obj2 = paginator2.get_page(page_number2)
+    total=len(posts)
+    actual=len(page_obj2)
+    
+    
     context = {
         'page_obj': page_obj,
+        'page_obj2': page_obj2,
+        'total':total,
+        'actual':actual,
     }
     return render(request, "blog_index.html", context)
 
