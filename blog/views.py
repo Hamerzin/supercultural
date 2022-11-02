@@ -64,13 +64,14 @@ def blog_index(request):
     page_obj2 = paginator2.get_page(page_number2)
     total=len(posts)
     actual=len(page_obj2)
-    
+    cat=Category_post.objects.all()
     
     context = {
         'page_obj': page_obj,
         'page_obj2': page_obj2,
         'total':total,
         'actual':actual,
+        'categoria':cat,
     }
     return render(request, "blog_index.html", context)
 
@@ -84,7 +85,7 @@ def blog_category(request, category_post):
     )
     
     posts2= Post.objects.filter(status=1).order_by('-created_on')
-
+    cat=Category_post.objects.all()
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -100,6 +101,7 @@ def blog_category(request, category_post):
          "page_obj2": page_obj2,
          "actual":actual,
          "total":total,
+         'categoria':cat,
     }
     return render(request, "blog_category.html", context)
 
@@ -148,7 +150,7 @@ def blog_detail(request, pk):
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+    cat=Category_post.objects.all()
   
     
     
@@ -157,6 +159,7 @@ def blog_detail(request, pk):
         "comments": comments,
         "comment_form": comment_form,
         'page_obj': page_obj,
+        'categoria':cat,
     }
 
     return render(request, "blog_detail.html", context)
@@ -179,6 +182,7 @@ def buscar(request):
             except EmptyPage:
                 posts = paginator.page(paginator.num_pages)
             total=len(posts_list)
+            cat=Category_post.objects.all()
             actual=len(posts)
             context = {
                'posts': posts,
@@ -188,6 +192,7 @@ def buscar(request):
                 "page_obj2":posts,
                 "actual":actual,
                 "total":total,
+                "categoria":cat,
 
                 }
         
@@ -205,6 +210,7 @@ def buscar(request):
 #seccion de contacto
 def contact(request):
     contact_form = ContactForm()
+    cat=Category_post.objects.all()
     myDate = datetime.now()
     if request.method == "POST":
         contact_form = ContactForm(data=request.POST)
@@ -232,8 +238,9 @@ def contact(request):
                 # Algo no ha ido bien, redireccionamos a FAIL
                 return redirect(reverse('contact')+"?fail")
     
-    return render(request, "contact.html",{'form':contact_form, 'myDate':myDate})
+    return render(request, "contact.html",{'form':contact_form, 'myDate':myDate, 'categoria':cat,})
 
 
 def about(request):
-    return render(request, "about.html")
+    cat=Category_post.objects.all()
+    return render(request, "about.html",{'categoria':cat})

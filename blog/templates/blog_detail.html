@@ -158,6 +158,10 @@
 								<p>Hora:   {{post.hora}}</p>
 								{%endif%}
 								<p> {{ post.short_desciption | safe }}</p>
+								{%if post.mp3 %}
+								<p> Audio de la nota:</p>
+								<audio src="{{post.mp3.url}}" controls="controls" type="audio/mpeg" preload="preload" style='margin-left: auto; margin-right:auto ; display: block;'></audio>
+								{%endif%}
 								<div class="featured">
 									<figure>
 										<img src="{{ post.image.url }}">
