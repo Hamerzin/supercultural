@@ -155,8 +155,11 @@
 								</ul>
 							</header>
 							<div class="main">
-								{%if post.fecha and post.hora%}
+								{%if post.fecha%} 
 								<p>Fecha: {{post.fecha}}  </p>
+								{%endif%}
+								{%if post.hora%}
+
 								<p>Hora:   {{post.hora}}</p>
 								{%endif%}
 								<p> {{ post.short_desciption | safe }}</p>
@@ -189,12 +192,11 @@
 							<footer>
 								<div class="col">
 									<ul class="tags">
-										<li><a href="#">AGENDA</a></li>
-										<li><a href="#">TEATRO</a></li>
-										<li><a href="#">CINES</a></li>
-										<li><a href="#">COBERTURAS</a></li>
-										<li><a href="#">PROGRAMA</a></li>
-										<li><a href="#">ESTRENOS</a></li>
+										{%for cat in categoria%}
+
+										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+										{%endfor%}
+										
 									</ul>
 								</div>
 								<div class="col">
@@ -339,207 +341,128 @@
         
 	
 
-		<!-- Start footer -->
-		<footer class="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="block">
-							<h1 class="block-title">Super Cultural</h1>
-							<div class="block-body">
-								<figure class="foot-logo">
-									<img src="images/logo-light.png" class="img-responsive" alt="Logo">
-								</figure>
-								<p class="brand-description">
-									Magz is a HTML5 &amp; CSS3 magazine template based on Bootstrap 3.
-								</p>
-								<a href="page.html" class="btn btn-magz white">About Us <i class="ion-ios-arrow-thin-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="block">
-							<h1 class="block-title">Popular Tags <div class="right"><a href="#">See All <i class="ion-ios-arrow-thin-right"></i></a></div></h1>
-							<div class="block-body">
-								<ul class="tags">
-									<li><a href="#">HTML5</a></li>
-									<li><a href="#">CSS3</a></li>
-									<li><a href="#">Bootstrap 3</a></li>
-									<li><a href="#">Web Design</a></li>
-									<li><a href="#">Creative Mind</a></li>
-									<li><a href="#">Standing On The Train</a></li>
-									<li><a href="#">at 6.00PM</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="line"></div>
-						<div class="block">
-							<h1 class="block-title">Newsletter</h1>
-							<div class="block-body">
-								<p>Suscribite para recibir novedades y estrenos!</p>
-								<form class="newsletter">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="ion-ios-email-outline"></i>
-										</div>
-										<input type="email" class="form-control email" placeholder="Tu Correo">
-									</div>
-									<button class="btn btn-primary btn-block white">Subscribir</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="block">
-							<h1 class="block-title">Latest News</h1>
-							<div class="block-body">
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img12.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">Donec consequat lorem quis augue pharetra</a></h1>
-										</div>
-									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img14.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">eu dapibus risus aliquam etiam ut venenatis</a></h1>
-										</div>
-									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img15.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">Nulla facilisis odio quis gravida vestibulum </a></h1>
-										</div>
-									</div>
-								</article>
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="single.html">
-												<img src="images/news/img16.jpg" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="single.html">Proin venenatis pellentesque arcu vitae </a></h1>
-										</div>
-									</div>
-								</article>
-								<a href="#" class="btn btn-magz white btn-block">See All <i class="ion-ios-arrow-thin-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-xs-12 col-sm-6">
-						<div class="block">
-							<h1 class="block-title">Follow Us</h1>
-							<div class="block-body">
-								<p>Follow us and stay in touch to get the latest news</p>
-								<ul class="social trp">
-									<li>
-										<a href="#" class="facebook">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-facebook"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="twitter">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-twitter-outline"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="youtube">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-youtube-outline"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="googleplus">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-googleplus"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="instagram">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-instagram-outline"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="tumblr">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-tumblr"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="dribbble">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-dribbble"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="linkedin">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-linkedin"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="skype">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-skype"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="rss">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-rss"></i>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="line"></div>
-						<div class="block">
-							<div class="block-body no-margin">
-								<ul class="footer-nav-horizontal">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="#">Partner</a></li>
-									<li><a href="contact.html">Contact</a></li>
-									<li><a href="page.html">About</a></li>
-								</ul>
-							</div>
+	<!-- Start footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="block">
+						<h1 class="block-title">Super Cultural</h1>
+						<div class="block-body">
+							<figure class="foot-logo">
+								<img src="{% static 'images/logo2.jpeg'%}" class="img-responsive" alt="Logo">
+							</figure>
+							<p class="brand-description">
+								Espectaculos y Eventos &amp; Toda la info sobre Rosario y zona.
+							</p>
+							<a href="{%url 'contact'%}" class="btn btn-magz white">Sobre nosotros <i class="ion-ios-arrow-thin-right"></i></a>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="copyright">
-							COPYRIGHT &copy; MAGZ 2017. ALL RIGHT RESERVED.
-							<div>
-								Diseñada por Fabian Di Paolo<i class="ion-heart"></i>  
-							</div>
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="block">
+						<h1 class="block-title">Tags Populares<div class="right"><a href="{%url 'todo'%}">Ver todo <i class="ion-ios-arrow-thin-right"></i></a></div></h1>
+						<div class="block-body">
+							<ul class="tags">
+								{%for cat in categoria%}
+
+									<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+									{%endfor%}
+								
+							</ul>
+						</div>
+					</div>
+					<div class="line"></div>
+					
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="block">
+						<h1 class="block-title">Ultimos eventos</h1>
+						<div class="block-body">
+							
+
+												{% for post in page_obj %}			
+							<article class="article-mini">
+								<div class="inner">
+									<figure>
+										<a href="{% url 'blog_detail' post.pk %}">
+											<img src="{{ post.image.url }}" alt="Sample Article">
+										</a>
+									</figure>
+									<div class="padding">
+										<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+									</div>
+								</div>
+							</article>
+							{%endfor%}
+							<a href="{%url 'todo'%}" class="btn btn-magz white btn-block">Ver todo <i class="ion-ios-arrow-thin-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-xs-12 col-sm-6">
+					<div class="block">
+						<h1 class="block-title">Seguinos</h1>
+						<div class="block-body">
+							<p>Seguinos en nustras redes y m</p>
+							<ul class="social trp">
+								<li>
+									<a href="https://www.facebook.com/supercultural2022/" class="facebook" target="_blank">
+										<svg><rect width="0" height="0"/></svg>
+										<i class="ion-social-facebook"></i>
+									</a>
+								</li>
+								
+								<li>
+									<a href="#" class="youtube">
+										<svg><rect width="0" height="0"/></svg>
+										<i class="ion-social-youtube-outline"></i>
+									</a>
+								</li>
+								
+								<li>
+									<a href="https://www.instagram.com/super.cultural/" class="instagram" target="_blank">
+										<svg><rect width="0" height="0"/></svg>
+										<i class="ion-social-instagram-outline"></i>
+									</a>
+								</li>
+								
+								<li>
+									<a href="#" class="linkedin">
+										<svg><rect width="0" height="0"/></svg>
+										<i class="ion-social-linkedin"></i>
+									</a>
+								</li>
+								
+								
+							</ul>
+						</div>
+					</div>
+					<div class="line"></div>
+					<div class="block">
+						<div class="block-body no-margin">
+							<ul class="footer-nav-horizontal">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="#">Partner</a></li>
+								<li><a href="contact.html">Contact</a></li>
+								<li><a href="page.html">About</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		</footer>
-		<!-- End Footer -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="copyright">
+						COPYRIGHT &copy;Todo los Derechos Reservados
+						<div>
+							Diseñado  <i class="ion-heart"></i> por <a href="https:www.linkedin.com/in/fabian-di-paolo" target="_blank">DiPA Dev</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End Footer -->
 
 		<!-- JS -->
 		<script src="js/jquery.js"></script>
