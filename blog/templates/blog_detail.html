@@ -32,10 +32,12 @@
 													<img src="{{ Teatros.imagen1.url }}" style="width: 100px; height:100px;">
 												</div>
 												<hr>
+												{%if post.precio%}
 												<div class="detail">
 													
 													<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
 											</div>
+											{%endif%}
 											
 											</div>
 											
@@ -170,8 +172,9 @@
 								</div>
 								{{ post.content | safe }}
 							</div>
+							{%if post.precio%}
 							<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
-							
+							{%endif%}
 						
 							{% if post.linkyoutube %}	
 							<p>Disfruta un adelanto de video</p>
