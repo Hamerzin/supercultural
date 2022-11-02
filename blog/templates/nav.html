@@ -5,22 +5,22 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<meta name="description" content="Magz is a HTML5 & CSS3 magazine template is based on Bootstrap 3.">
+		<meta name="description" content="Super Cultural , la pagina del espectaculo de rosario">
 		<meta name="author" content="Kodinger">
-		<meta name="keyword" content="magz, html5, css3, template, magazine template">
+		<link href="{% static 'images/supercultural.png' %}" rel="icon">
+		<meta name="keyword" content="supercultural, super, cultural, espectaculos, rosario">
 		<!-- Shareable -->
-		<meta property="og:title" content="HTML5 & CSS3 magazine template is based on Bootstrap 3" />
+		<meta property="og:title" content="Super cultural" />
 		<meta property="og:type" content="article" />
-		<meta property="og:url" content="http://github.com/nauvalazhar/Magz" />
-		<meta property="og:image" content="https://raw.githubusercontent.com/nauvalazhar/Magz/master/images/preview.png" />
 		<title>Super Cultural </title>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="{% static 'scripts/bootstrap/bootstrap.min.css'%}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<!-- IonIcons -->
 		<link rel="stylesheet" href="{% static 'scripts/ionicons/css/ionicons.min.css'%}">
 		<!-- Toast -->
 		<link rel="stylesheet" href="{% static 'scripts/toast/jquery.toast.min.css'%}">
-		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<!-- OwlCarousel -->
 		<link rel="stylesheet" href="{% static 'scripts/owlcarousel/dist/assets/owl.carousel.min.css'%}">
 		<link rel="stylesheet" href="{% static 'scripts/owlcarousel/dist/assets/owl.theme.default.min.css'%}">
@@ -32,7 +32,8 @@
 		<link rel="stylesheet" href="{% static 'css/skins/all.css'%}">
 		<link rel="stylesheet" href="{% static 'css/demo.css'%}">
 	</head>
-
+	
+	</a>
 	<body class="skin-orange">
 		<header class="primary">
 			<div class="firstbar">
@@ -46,12 +47,13 @@
 							</div>						
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="POST"> {%csrf_token%} 
-							
+							<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="get"> {%csrf_token%} 
+								
 								<div class="form-group">
+									<div class="form-group"></div>
 									<div class="input-group">
 										
-										<input type="search" name="search" class="form-control" placeholder="busque un espectaculo o teatros" arial-label="search">									
+										<input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="busque un espectaculo o teatros" arial-label="search">									
 										<div class="input-group-btn">
 											<button class="btn btn-primary" type="search"><i class="ion-search"></i></button>
 										</div>
@@ -60,12 +62,11 @@
 								<div class="help-block">
 									<div>Popular:</div>
 									<ul>
-										<li><a href="#">Agenda</a></li>
-										<li><a href="#">Teatro</a></li>
-										<li><a href="#">Obras</a></li>
-										<li><a href="#">Recitales</a></li>
-										<li><a href="#">Entrevistas</a></li>
-										<li><a href="#">Coberturas</a></li>
+										{%for cat in categoria%}
+
+										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+										{%endfor%}
+										<li><a href="{% url 'contact' %}">Contacto</a></li>
 									</ul>
 								</div>
 							</form>								
@@ -99,11 +100,11 @@
 							<li class="for-tablet nav-title"><a>Menu</a></li>
 							<li class="for-tablet"><a href="login.html">Login</a></li>
 							<li class="for-tablet"><a href="register.html">Register</a></li>
-							<li><a href="category.html">Home</a></li>
+							<li><a href="{%url 'index'%}">Home</a></li>
 							<li class="dropdown magz-dropdown">
 								<a href="category.html">Secciones <i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
-									<li><a href="index.html">Home</a></li>
+									<li><a href="{%url 'index'%}">Home</a></li>
 									<li class="dropdown magz-dropdown">
 										<a href="#">Perfil usuario <i class="ion-ios-arrow-right"></i></a>
 										<ul class="dropdown-menu">
@@ -117,7 +118,7 @@
 									<li><a href="single.html">Single</a></li>
 									<li><a href="page.html">Page</a></li>
 									<li><a href="search.html">Search</a></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li><a href="{%url 'contact'%}">Contacto</a></li>
 									<li class="dropdown magz-dropdown">
 										<a href="#">Error <i class="ion-ios-arrow-right"></i></a>
 										<ul class="dropdown-menu">
@@ -129,14 +130,14 @@
 									</li>
 								</ul>
 							</li>
-							<li class="dropdown magz-dropdown"><a href="#">Categorias <i class="ion-ios-arrow-right"></i></a>
+							<li class="dropdown magz-dropdown"><a href="#">Categorias<i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
+									<li><a href="{% url 'todo' %}">Todo</a></li>
+									{%for cat in categoria%}
+
+									<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+									{%endfor%}
 									
-									{% for category_post in post.categories.all %}
-                            		<li><a href="category.html">Internet</a></li>
-																{% endfor %}
-									
-									<li><a href="category.html">Office</a></li>
 									
 								</ul>
 							</li>
@@ -250,8 +251,13 @@
 									<li class="divider"></li>
 									<li><a href="#"><i class="icon ion-log-out"></i> Logout</a></li>
 								</ul>
+							
+							</li>
+							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">94.1 Vivo<i class="ion-ios-arrow-right"></i></a>
 							</li>
 						</ul>
+								
+						
 					</div>
 				</div>
 			</nav>

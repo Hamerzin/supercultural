@@ -29,7 +29,7 @@ def index(request):
     num_pagina=request.GET.get('page')
     ult_post= paginador.get_page(num_pagina)
 
-    paginador2=Paginator(posts2, 4)
+    paginador2=Paginator(posts2, 5)
     num_pagina2=request.GET.get('page')
     ult_post2= paginador2.get_page(num_pagina2)
     cat=Category_post.objects.all()
@@ -83,13 +83,23 @@ def blog_category(request, category_post):
         '-created_on'
     )
     
+    posts2= Post.objects.filter(status=1).order_by('-created_on')
+
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    paginator2 = Paginator(posts2, 6)
+    page_number2 = request.GET.get('page')
+    page_obj2 = paginator2.get_page(page_number2)
+    total=len(posts)
+    actual=len(page_obj)
     context = {
         "category_post": category_post,
          "page_obj": page_obj,
+         "page_obj2": page_obj2,
+         "actual":actual,
+         "total":total,
     }
     return render(request, "blog_category.html", context)
 
@@ -168,18 +178,27 @@ def buscar(request):
                 posts = paginator.page(1)
             except EmptyPage:
                 posts = paginator.page(paginator.num_pages)
-           
+            total=len(posts_list)
+            actual=len(posts)
             context = {
                'posts': posts,
                "resultados":resultados,
                 "cantidad":cantidad,
                 "nombre":query,
+                "page_obj2":posts,
+                "actual":actual,
+                "total":total,
 
                 }
         
             
             return render (request, "search.html",  context )
-                  
+    else:
+        mensaje="No ingreso ningun dato"
+        
+        return render (request, "search.html",{"mensaje":mensaje})
+
+
         
 
 
@@ -214,3 +233,7 @@ def contact(request):
                 return redirect(reverse('contact')+"?fail")
     
     return render(request, "contact.html",{'form':contact_form, 'myDate':myDate})
+
+
+def about(request):
+    return render(request, "about.html")

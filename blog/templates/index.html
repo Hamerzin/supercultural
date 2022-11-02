@@ -46,12 +46,13 @@
 							</div>						
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="POST"> {%csrf_token%} 
+							<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="get"> {%csrf_token%} 
 								
 								<div class="form-group">
+									<div class="form-group"></div>
 									<div class="input-group">
 										
-										<input type="search" name="search" class="form-control" placeholder="busque un espectaculo o teatros" arial-label="search">									
+										<input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="busque un espectaculo o teatros" arial-label="search">									
 										<div class="input-group-btn">
 											<button class="btn btn-primary" type="search"><i class="ion-search"></i></button>
 										</div>
@@ -97,12 +98,12 @@
 						<ul class="nav-list">
 							<li class="for-tablet nav-title"><a>Menu</a></li>
 							<li class="for-tablet"><a href="login.html">Login</a></li>
-							<li class="for-tablet"><a href="register.html">Register</a></li>
-							<li><a href="category.html">Home</a></li>
+							<li class="for-tablet"><a href="register.html">Registrarse</a></li>
+							
 							<li class="dropdown magz-dropdown">
 								<a href="category.html">Secciones <i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
-									<li><a href="index.html">Home</a></li>
+									
 									<li class="dropdown magz-dropdown">
 										<a href="#">Perfil usuario <i class="ion-ios-arrow-right"></i></a>
 										<ul class="dropdown-menu">
@@ -112,20 +113,10 @@
 											<li><a href="reset.html">Reset Password</a></li>
 										</ul>
 									</li>
-									<li><a href="category.html">Category</a></li>
-									<li><a href="single.html">Single</a></li>
-									<li><a href="page.html">Page</a></li>
-									<li><a href="search.html">Search</a></li>
+									
+									<li><a href="{%url 'buscar'%}">Busqueda</a></li>
 									<li><a href="{%url 'contact'%}">Contacto</a></li>
-									<li class="dropdown magz-dropdown">
-										<a href="#">Error <i class="ion-ios-arrow-right"></i></a>
-										<ul class="dropdown-menu">
-											<li><a href="403.html">403</a></li>
-											<li><a href="404.html">404</a></li>
-											<li><a href="500.html">500</a></li>
-											<li><a href="503.html">503</a></li>
-										</ul>
-									</li>
+									
 								</ul>
 							</li>
 							<li class="dropdown magz-dropdown"><a href="#">Categorias<i class="ion-ios-arrow-right"></i></a>
@@ -139,28 +130,26 @@
 									
 								</ul>
 							</li>
-							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">Mega Menu <i class="ion-ios-arrow-right"></i> <div class="badge">Hot</div></a>
+							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">Super Menu <i class="ion-ios-arrow-right"></i> <div class="badge">Hot</div></a>
 								<div class="dropdown-menu megamenu">
 									<div class="megamenu-inner">
 										<div class="row">
 											<div class="col-md-3">
 												<div class="row">
 													<div class="col-md-12">
-														<h2 class="megamenu-title">Trending</h2>
+														<h2 class="megamenu-title">Mas populares</h2>
 													</div>
 												</div>
+												{% for post in ult_post2 %}
 												<ul class="vertical-menu">
-													<li><a href="#"><i class="ion-ios-circle-outline"></i> Mega menu is a new feature</a></li>
-													<li><a href="#"><i class="ion-ios-circle-outline"></i> This is an example</a></li>
-													<li><a href="#"><i class="ion-ios-circle-outline"></i> For a submenu item</a></li>
-													<li><a href="#"><i class="ion-ios-circle-outline"></i> You can add</a></li>
-													<li><a href="#"><i class="ion-ios-circle-outline"></i> Your own items</a></li>
+													<li><a href="#"><i class="ion-ios-circle-outline"></i> {{post.title}}</a></li>
 												</ul>
+												{%endfor%}
 											</div>
 											<div class="col-md-9">
 												<div class="row">
 													<div class="col-md-12">
-														<h2 class="megamenu-title">Featured Posts</h2>
+														<h2 class="megamenu-title">Ultimos posts</h2>
 													</div>
 												</div>
 												<div class="row">
@@ -191,67 +180,26 @@
 									</div>
 								</div>
 							</li>
-							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">Column <i class="ion-ios-arrow-right"></i></a>
-								<div class="dropdown-menu megamenu">
-									<div class="megamenu-inner">
-										<div class="row">
-											<div class="col-md-3">
-												<h2 class="megamenu-title">Column 1</h2>
-												<ul class="vertical-menu">
-													<li><a href="#">Example 1</a></li>
-													<li><a href="#">Example 2</a></li>
-													<li><a href="#">Example 3</a></li>
-													<li><a href="#">Example 4</a></li>
-													<li><a href="#">Example 5</a></li>
-												</ul>
-											</div>
-											<div class="col-md-3">
-												<h2 class="megamenu-title">Column 2</h2>
-												<ul class="vertical-menu">
-													<li><a href="#">Example 6</a></li>
-													<li><a href="#">Example 7</a></li>
-													<li><a href="#">Example 8</a></li>
-													<li><a href="#">Example 9</a></li>
-													<li><a href="#">Example 10</a></li>
-												</ul>
-											</div>
-											<div class="col-md-3">
-												<h2 class="megamenu-title">Column 3</h2>
-												<ul class="vertical-menu">
-													<li><a href="#">Example 11</a></li>
-													<li><a href="#">Example 12</a></li>
-													<li><a href="#">Example 13</a></li>
-													<li><a href="#">Example 14</a></li>
-													<li><a href="#">Example 15</a></li>
-												</ul>
-											</div>
-											<div class="col-md-3">
-												<h2 class="megamenu-title">Column 4</h2>
-												<ul class="vertical-menu">
-													<li><a href="#">Example 16</a></li>
-													<li><a href="#">Example 17</a></li>
-													<li><a href="#">Example 18</a></li>
-													<li><a href="#">Example 19</a></li>
-													<li><a href="#">Example 20</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="dropdown magz-dropdown"><a href="#">Dropdown Icons <i class="ion-ios-arrow-right"></i></a>
+							<li class="dropdown magz-dropdown"><a href="#">Extras<i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
-									<li><a href="#"><i class="icon ion-person"></i> My Account</a></li>
-									<li><a href="#"><i class="icon ion-heart"></i> Favorite</a></li>
-									<li><a href="#"><i class="icon ion-chatbox"></i> Comments</a></li>
-									<li><a href="#"><i class="icon ion-key"></i> Change Password</a></li>
-									<li><a href="#"><i class="icon ion-settings"></i> Settings</a></li>
-									<li class="divider"></li>
-									<li><a href="#"><i class="icon ion-log-out"></i> Logout</a></li>
+									<li><a href="#"><i class="icon ion-person"></i> Coberturas</a></li>
+									<li><a href="#"><i class="icon ion-person"></i> Galeria</a></li>
+									<li><a href="#"><i class="icon ion-heart"></i> Cines </a></li>
+									<li><a href="#"><i class="icon ion-heart"></i> Teatros </a></li>
+									<li><a href="#"><i class="icon ion-heart"></i> Artistas locales </a></li>
+
+
+									
 								</ul>
-							
 							</li>
-							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">94.1 Vivo<i class="ion-ios-arrow-right"></i></a>
+							
+							<li><a href="{%url 'about'%}">Super Cultural Radio <i class="ion-ios"></i></a>
+								
+							</li>
+							
+							<li class=><a href="{%url 'contact'%}">Contactanos!<i class="ion-ios"></i></a>
+							</li>
+							<li class=><a href="#radio">94.1 En Vivo<i class="ion-ios"></i></a>
 							</li>
 						</ul>
 								
@@ -279,7 +227,7 @@
 							</div>
 							<div class="owl-carousel owl-theme" id="headline">							
 								<div class="item">
-									<a href="#"><div class="badge">Novedades!</div> Escuchanos en FM vintage 94.1, todos los miercoles de 20 a 22</a>
+									<a href="#radio"><div class="badge">Novedades!</div> Escuchanos en FM vintage 94.1, todos los miercoles de 20 a 22</a>
 									
 									</audio>
 								</div>
@@ -303,8 +251,8 @@
 									
 							{% endfor %}
 										
-										<h1><a href="single.html">{{ post.title }}</a></h1>
-										<div class="time">December 26, 2016</div>
+										<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+										<div class="time">{{post.created_on|timesince }}</div>
 									</div>
 								</article>
 							</div>
@@ -436,7 +384,7 @@
 								<aside>
 									<div id="cont_db0921d36ca9fd5c868ce8cc0c484e0b"><script type="text/javascript" async src="https://www.meteored.com.ar/wid_loader/db0921d36ca9fd5c868ce8cc0c484e0b"></script></div>
 							</aside>
-								<form class="newsletter">
+								<form class="newsletter" id="radio">
 									<div class="icon">
 										<i class="ion-ios-email-outline"></i>
 										<h1>Newsletter</h1>
@@ -451,10 +399,10 @@
 								</form>
 							</div>
 						</aside>
-						<div class="aside-body">
+						<div class="aside-body" >
 						<aside >
 							
-								<h4 style="text-align: center;">Radio 94.1 en vivo</h4>
+								<a href="#radio"><h4 style="text-align: center;">Radio 94.1 en vivo</h4></a>
 								<img src=" {%static 'images/radios-m90vintage.png'%}" alt="" style='margin-left: auto; margin-right:auto ; display: block;'>
 								<audio src="https://player.m90radio.com:8021/mileniumrosario.mp3" controls="controls" type="audio/mpeg" preload="preload" style='margin-left: auto; margin-right:auto ; display: block;'></audio>
 						</aside>

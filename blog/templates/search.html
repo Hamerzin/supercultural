@@ -15,10 +15,10 @@
 							<h2 class="aside-title">{{resultados}} {{nombre}}</h2>
 							
 							<div class="aside-body">
-								<p>Search with other keywords or use filters for more accurate results.</p>
+								<p>Busca con otras palabras, cines, recitales, artistas, espectaculos.</p>
 								
 								
-								<form class="search" autocomplete="off" action="{% url 'buscar'%}" method="get"> {%csrf_token%} 
+								<form class="search" autocomplete="on" action="{% url 'buscar'%}" method="get"> {%csrf_token%} 
 							
 									<div class="form-group">
 										<div class="form-group"></div>
@@ -45,21 +45,10 @@
 					<div class="col-md-9">
 						<div class="nav-tabs-group">
 							<ul class="nav-tabs-list">
-								<li class="active"><a href="#">All</a></li>
-								<li><a href="#">Latest</a></li>
-								<li><a href="#">Popular</a></li>
-								<li><a href="#">Trending</a></li>
-								<li><a href="#">Videos</a></li>
+								<li class="active"><a href="#">Resultados</a></li>
+								
 							</ul>
-							<div class="nav-tabs-right">
-								<select class="form-control">
-									<option>Limit</option>
-									<option>10</option>
-									<option>20</option>
-									<option>50</option>
-									<option>100</option>
-								</select>
-							</div>
+							
 						</div>
 						<div class="search-result">
 							{%if mensaje%}
@@ -71,7 +60,7 @@
 							{%endif%}
 							{%endif%}
 							{%if cantidad%}
-							<p></p> Search results for keyword "hello" found in {{cantidad}} posts.</p>
+							<p></p> Resultados para la palabra clave : "{{nombre}}" encontrada en {{cantidad}} posts.</p>
 							{%endif%}
 						</div>
 						<div class="row">
@@ -79,25 +68,27 @@
 							<article class="col-md-12 article-list">
 								<div class="inner">
 									<figure>
-										<a href="single.html">
+										<a href="{% url 'blog_detail' pro.pk %}">
 											<img src="{{pro.image.url}}">
 										</a>
 									</figure>
 									<div class="details">
 										<div class="detail">
-											<div class="category">
-												<a href="#">Film</a>
-											</div>
-											<time>December 19, 2016</time>
+											{% for category_post in pro.categories.all %}
+												<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></div>
+												{% endfor %}
+											
+											
 										</div>
-										<h1><a href="single.html">Donec consequat arcu at ultrices sodales quam erat aliquet diam</a></h1>
+										<time>{{pro.created_on|timesince }}</time>
+										<h1><a href="{% url 'blog_detail' pro.pk %}">{{pro.title}}</a></h1>
 										<p>
-										Donec consequat, arcu at ultrices sodales, quam erat aliquet diam, sit amet interdum libero nunc accumsan nisi.
+										{{pro.short_desciption}}
 										</p>
 										<footer>
-											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>273</div></a>
-											<a class="btn btn-primary more" href="single.html">
-												<div>More</div>
+											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>{{pro.visit_num}}</div></a>
+											<a class="btn btn-primary more" href="{% url 'blog_detail' pro.pk %}">
+												<div>Mas info</div>
 												<div><i class="ion-ios-arrow-thin-right"></i></div>
 											</a>
 										</footer>
@@ -109,30 +100,27 @@
 					
 					
 					{% if posts.has_other_pages %}
-    <ul class="pagination">
-        {% if posts.has_previous %}
-            <li class="waves-effect"><a href="?page=
-                    {{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
-                    class="material-icons">chevron_left</i></a></li>
-        {% else %}
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-        {% endif %}
-        {% for num in posts.paginator.page_range %}
-            {% if posts.number == num %}
-                <li class="active"><a href="#!">{{ num }}</a></li>
-            {% else %}
-                <li class="waves-effect"><a
-                        href="?page={{ num }}{% if nombre %}&q={{ nombre }}{% endif %}">{{ num }}</a></li>
-            {% endif %}
-        {% endfor %}
-        {% if posts.has_next %}
-            <li class="waves-effect"><a
-                    href="?page={{ posts.next_page_number }}{% if nombre %}&q={{ nombre }}{% endif %}"><i
-                    class="material-icons">chevron_right</i></a></li>
-        {% else %}
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-        {% endif %}
-    </ul>
+					<ul class="pagination">	
+						{% if page_obj2.has_previous %}
+                           <li><a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&laquo; </a></li>
+						   
+						   <li class="prev"><a href="?page={{ page_obj2.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="ion-ios-arrow-left"></i></a></li>
+                           
+                       {% endif %}
+
+		              
+		              
+					  <li class="active"><a href="#"> {{ page_obj2.number }}</a></li>
+		              {% if page_obj2.has_next %}
+					     <li class="next"><a href="?page={{ page_obj2.next_page_number }}{% if nombre %}&q={{ nombre }}{% endif %}"><i class="ion-ios-arrow-right"></i></a></li>
+                           
+                           <li><a href="?page={{ page_obj2.paginator.num_pages}}{% if nombre %}&q={{ nombre }}{% endif %}">&raquo;</a></li>
+                        {% endif %}
+		              
+		            </ul>
+		            <div class="pagination-help-text">
+		            	Mostrando {{actual}} resultados de {{total}} &mdash; Pagina {{ page_obj2.number }}
+		            </div>
 {% endif %}
 
 		            
