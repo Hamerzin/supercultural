@@ -73,10 +73,17 @@
 							</form>								
 						</div>
 						<div class="col-md-3 col-sm-12 text-right">
+							{%if not request.user.is_authenticated %}
 							<ul class="nav-icons">
-								<li><a href="register.html"><i class="ion-person-add"></i><div>Registrar</div></a></li>
-								<li><a href="login.html"><i class="ion-person"></i><div>Login</div></a></li>
+								<li><a href="{%url 'register'%}"><i class="ion-person-add"></i><div>Registrar</div></a></li>
+								<li><a href="{%url 'login'%}"><i class="ion-person"></i><div>Login</div></a></li>
+								{%else%}
+								<br>
+								<h5>Hola!! {{request.user}}
+								<a href="{%url 'logout'%}"><i class="ion-person"></i>Salir</a></h5>
+								{%endif%}
 							</ul>
+							
 						</div>
 					</div>
 				</div>
@@ -541,7 +548,7 @@
 						<div class="copyright">
 							COPYRIGHT &copy;Todo los Derechos Reservados
 							<div>
-								Diseñado  <i class="ion-heart"></i> por <a href="https:www.linkedin.com/in/fabian-di-paolo" target="_blank">DiPA Dev</a>
+								Diseñado  <i class="ion-heart"></i> por <a href="https://www.linkedin.com/in/fabian-di-paolo" target="_blank">DiPA Dev</a>
 							</div>
 						</div>
 					</div>

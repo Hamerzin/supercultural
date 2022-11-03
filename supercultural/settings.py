@@ -55,9 +55,13 @@ INSTALLED_APPS = [
     'django_summernote',
     'crispy_forms',
     'embed_video',
+    'login',
 ]
 # Base url to serve media files
 MEDIA_URL = '/media/'
+LOGIN_URL="login"
+LOGIN_REDIRECT_URL="index"
+LOGOUT_REDIRECT_URL="index"
 
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
