@@ -4,6 +4,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta property="og:url"           content="https://www.supercultural.com.ar/{{post.slug}}" />
+	
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<meta name="description" content="Super Cultural , la pagina del espectaculo de rosario">
 		<meta name="author" content="fdipaolo">
@@ -363,7 +365,7 @@
 											</div>
 											
 											<div class="featured-author-footer">
-												<a href="#">Todas las fotos</a>
+												<a href="{% url 'gallery'%}">Todas las fotos</a>
 											</div>
 										</div>
 									</div>

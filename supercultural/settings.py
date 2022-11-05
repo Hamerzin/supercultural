@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'embed_video',
     'login',
+    'gallery',
 ]
 # Base url to serve media files
 MEDIA_URL = '/media/'

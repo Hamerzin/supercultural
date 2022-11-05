@@ -5,18 +5,6 @@
 {% block contenidoQueCambia %}
 {% load crispy_forms_tags %} 
 
-<head>
-	<title>Your Website Title</title>
-	  <!-- You can use open graph tags to customize link previews.
-	  Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-	  {% for post in page_obj %}
-	<meta property="og:url"           content="https://www.supercultural.com.ar/{{post.slug}}" />
-	<meta property="og:type"          content="website" />
-	<meta property="og:title"         content="{{post.title}}" />
-	<meta property="og:description"   content="{{post.short_desciption}}" />
-	<meta property="og:image"         content="{{post.image.url}}" />
-	{%endfor%}
-  </head>
   <div id="fb-root"></div>
  	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v15.0" nonce="RAr9Gra6"></script>
 		<section class="single">
@@ -186,15 +174,18 @@
 								<div class="featured">
 									<figure>
 										<img src="{{ post.image.url }}">
-										<figcaption>Imagen by Natali Birri</figcaption>
+										<figcaption></figcaption>
 									</figure>
+									<div class="details">
+										<h2 style="color: white;"> </h2>
+									</div>
 								</div>
 								{{ post.content | safe }}
 							</div>
 							{%if post.precio%}
 							<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
 							{%endif%}
-							<div class="fb-like" data-href="https://www.supercultural.com.ar/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+							<div class="fb-like" data-href="https://www.supercultural.com.ar/{{post.slug}}/" data-width="200" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
 							{% if post.linkyoutube %}	
 							<p>Disfruta un adelanto de video</p>
 						<div class="embed-container">
@@ -224,7 +215,7 @@
 						<div class="title"><i class="ion-android-share-alt"></i> Comparti!!</div>
 							<ul class="social">
 								<li>
-									<a href="https://www.facebook.com/sharer/sharer.php?u=www.supercultural.com.ar/1/" class="facebook">
+									<a href="https://www.facebook.com/sharer/sharer.php?u=www.supercultural.com.ar/{{post.slug}}/" class="facebook">
 										<i class="ion-social-facebook"></i> Facebook
 									</a>
 								</li>
@@ -463,7 +454,6 @@
 		<script src="js/e-magz.js"></script>
 		<div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce="JBhSiHTh"></script>
-	</body>
-</html>
+
 
 {%endblock%}

@@ -24,9 +24,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
     path('', include('blog.urls')),
     path('', include('login.urls')),
+    path('gallery/gallery/', include('gallery.urls')),
     path('summernote/', include('django_summernote.urls')),
 ]
 
