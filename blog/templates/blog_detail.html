@@ -5,7 +5,20 @@
 {% block contenidoQueCambia %}
 {% load crispy_forms_tags %} 
 
-
+<head>
+	<title>Your Website Title</title>
+	  <!-- You can use open graph tags to customize link previews.
+	  Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+	  {% for post in page_obj %}
+	<meta property="og:url"           content="https://www.supercultural.com.ar/{{post.slug}}" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="{{post.title}}" />
+	<meta property="og:description"   content="{{post.short_desciption}}" />
+	<meta property="og:image"         content="{{post.image.url}}" />
+	{%endfor%}
+  </head>
+  <div id="fb-root"></div>
+ 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v15.0" nonce="RAr9Gra6"></script>
 		<section class="single">
 			<div class="container">
 				<div class="row">
@@ -100,18 +113,20 @@
 								<article class="article-mini">
 									<div class="inner">
 										<figure>
-											<a href="{% url 'blog_detail' post.pk %}">
+											<a href="{% url 'detail' post.slug %}">
 												<img src="{{ post.image.url }}">
 											</a>
 										</figure>
 										<div class="padding">
-											<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
+											
 											<div class="detail">
 												{% for category_post in post.categories.all %}
 												<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></div>
 												{% endfor %}
 												<div class="time">{{ post.created_on | timesince }}</div>
 											</div>
+
 										</div>
 									</div>
 								</article>
@@ -162,6 +177,7 @@
 
 								<p>Hora:   {{post.hora}}</p>
 								{%endif%}
+								
 								<p> {{ post.short_desciption | safe }}</p>
 								{%if post.mp3 %}
 								<p> Audio de la nota:</p>
@@ -178,7 +194,7 @@
 							{%if post.precio%}
 							<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
 							{%endif%}
-						
+							<div class="fb-like" data-href="https://www.supercultural.com.ar/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
 							{% if post.linkyoutube %}	
 							<p>Disfruta un adelanto de video</p>
 						<div class="embed-container">
@@ -208,7 +224,7 @@
 						<div class="title"><i class="ion-android-share-alt"></i> Comparti!!</div>
 							<ul class="social">
 								<li>
-									<a href="#" class="facebook">
+									<a href="https://www.facebook.com/sharer/sharer.php?u=www.supercultural.com.ar/1/" class="facebook">
 										<i class="ion-social-facebook"></i> Facebook
 									</a>
 								</li>
@@ -282,53 +298,21 @@
 							</div>
 						</div>
 						<div class="line"><div>Dejanos tu comentario</div></div>
-						<div class="card-body">
-							<!-- Comment with nested comments -->
-							<h2>{{ comments.count }} Comentarios</h2>
-							
-							{% for comment in comments %}
-							
-							<div class="media mb-4" style="margin-top:40px">
-							  <img class="d-flex mr-3 rounded-circle" src="{% static 'images/avatar-2.svg'%}" width="70px" height="70px" alt="">
-							  <div class="media-body">
-								
-								<h5 class="mt-0">{{ comment.name }}</h5>
-								{{ comment.body|linebreaks }}
-								
-								
+						<div class="fb-comments" data-href="https://www.supercultural.com.ar/{{post.slug}}/" data-width="700" data-numposts="10"></div>
 						
-							  </div>
-							</div>
-						   
-						   {% empty %}
-							 <div class="card-body">
-							 <h3>&#128512;</h3>
-							 </div>
-							{% endfor %}
-						   </div>
-						
-						
-						   <div>
-							
-						</div>
 						
 						<hr>
 						</div>
 						
-						
 						<div class="card-body">
+						
+						</div>
+					</div>
+				</div>
 						{% load crispy_forms_tags %} 
 						<!-- Dynamic Comments-->
 						<!-- Comments Form --> 
-						
-								<h5>Agregue un comentario</h5>
-								
-								   <form action="." method="post" style="margin-top: 1.3em">
-										 {{ comment_form | crispy }}
-										 {% csrf_token %}
-									   <button type="submit" class="btn btn-default">Agregar comentario</button>
-									   
-									</form>
+							
 						</div>		
 						
 					</div>
@@ -338,7 +322,7 @@
 
 
 	</div>
-        
+         
 	
 
 	<!-- Start footer -->
@@ -385,12 +369,12 @@
 							<article class="article-mini">
 								<div class="inner">
 									<figure>
-										<a href="{% url 'blog_detail' post.pk %}">
+										<a href="{% url 'detail' post.slug %}">
 											<img src="{{ post.image.url }}" alt="Sample Article">
 										</a>
 									</figure>
 									<div class="padding">
-										<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+										<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
 									</div>
 								</div>
 							</article>
@@ -477,6 +461,8 @@
 		<script src="scripts/toast/jquery.toast.min.js"></script>
 		<script src="js/demo.js"></script>
 		<script src="js/e-magz.js"></script>
+		<div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce="JBhSiHTh"></script>
 	</body>
 </html>
 

@@ -1,6 +1,9 @@
-from email.policy import default
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -70,8 +73,14 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-  
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
 
+  
+class UserFavorites(models.Model):
+    user=models.ForeignKey(User, on_delete= models.CASCADE, related_name='user_fav')
+    favoritos=models.ForeignKey(Post,on_delete= models.CASCADE, related_name='user_fav')
 
 
 class Comment(models.Model):

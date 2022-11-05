@@ -11,4 +11,6 @@ urlpatterns=[
     path('contacto/contacto', views.contact, name="contact"),
     path('about/about/', views.about, name="about",),
     path('logout/logout/', LogoutView.as_view(template_name='index.html'), name = 'logout'),
+    path('<slug:slug>/', views.favourites, name='favorite'),
+    path(route='<slug:slug>', view=views.blog_detail, name='detail'),
 ]

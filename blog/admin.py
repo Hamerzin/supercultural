@@ -2,7 +2,7 @@
 
 # Register your models here.
 from django.contrib import admin
-from blog.models import Notas, Post, Category_post, Comment, Teatros, Cines, Profile, Galeria
+from blog.models import Notas, Post, Category_post, Comment, Teatros, Cines, Profile, Galeria, UserFavorites
 from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 
@@ -42,5 +42,6 @@ admin.site.register(Teatros,TeatrosAdmin)
 admin.site.register(Cines)
 admin.site.register(Profile)
 admin.site.register(Galeria)
+admin.site.register(UserFavorites)
 
 

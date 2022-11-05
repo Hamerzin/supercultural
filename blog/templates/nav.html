@@ -73,10 +73,17 @@
 							</form>								
 						</div>
 						<div class="col-md-3 col-sm-12 text-right">
+							{%if not request.user.is_authenticated %}
 							<ul class="nav-icons">
-								<li><a href="register.html"><i class="ion-person-add"></i><div>Registrar</div></a></li>
-								<li><a href="login.html"><i class="ion-person"></i><div>Login</div></a></li>
+								<li><a href="{%url 'register'%}"><i class="ion-person-add"></i><div>Registrar</div></a></li>
+								<li><a href="{%url 'login'%}"><i class="ion-person"></i><div>Login</div></a></li>
+								{%else%}
+								<br>
+								<h5>Hola!! {{request.user}}
+								<a href="{%url 'logout'%}"><i class="ion-person"></i>Salir</a></h5>
+								{%endif%}
 							</ul>
+							
 						</div>
 					</div>
 				</div>
@@ -160,7 +167,7 @@
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{% url 'blog_detail' post.pk %}">
+																<a href="{% url 'detail' post.slug %}">
 																	<img src="{{ post.image.url }}"alt="Sample Article">
 																</a>
 															</figure>
@@ -172,7 +179,7 @@
 																{% endfor %}
 																	
 																</div>
-																<h2><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h2>
+																<h2><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h2>
 															</div>
 														</div>
 													</article>
@@ -202,7 +209,8 @@
 							
 							<li class=><a href="{%url 'contact'%}">Contactanos!<i class="ion-ios"></i></a>
 							</li>
-							
+							<li class=><a href="#radio">94.1 En Vivo<i class="ion-ios"></i></a>
+							</li>
 						</ul>
 								
 						

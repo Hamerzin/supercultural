@@ -167,7 +167,7 @@
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{% url 'blog_detail' post.pk %}">
+																<a href="{% url 'detail' post.slug %}">
 																	<img src="{{ post.image.url }}"alt="Sample Article">
 																</a>
 															</figure>
@@ -179,7 +179,7 @@
 																{% endfor %}
 																	
 																</div>
-																<h2><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h2>
+																<h2><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h2>
 															</div>
 														</div>
 													</article>
@@ -261,7 +261,7 @@
 									
 							{% endfor %}
 										
-										<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+										<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
 										<div class="time">{{post.created_on|timesince }}</div>
 									</div>
 								</article>
@@ -278,7 +278,7 @@
 							<article class="col-md-12 article-list">
 								<div class="inner">
 									<figure>
-										<a href="{% url 'blog_detail' post.pk %}">
+										<a href="{% url 'detail' post.slug %}">
 											<img src="{{ post.image.url }}" alt="imagen espectaculo">
 										</a>
 									</figure>
@@ -290,7 +290,7 @@
 												{% endfor %}
 											<div class="time">{{post.created_on|timesince }}</div>
 										</div>
-										<h1><a href="{% url 'blog_detail' post.pk %}">{{post.title}}</a></h1>
+										<h1><a href="{% url 'detail' post.slug %}">{{post.title}}</a></h1>
 										{%if post.fecha%}
 										<p>Fecha: {{post.fecha}}</p>
 										{%endif%}
@@ -299,7 +299,7 @@
 										</p>
 										<footer>
 											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>{{ post.visit_num }}</div></a>
-											<a class="btn btn-primary more" href="{% url 'blog_detail' post.pk %}">
+											<a class="btn btn-primary more" href="{% url 'detail' post.slug %}">
 												<div>Mas info</div>
 												<div><i class="ion-ios-arrow-thin-right"></i></div>
 											</a>
@@ -335,7 +335,7 @@
 						<aside>
 							<div class="aside-body">
 								<h4 class="block-title" style="color: white;">Facebook</h4>
-								<div class="fb-page" data-href="https://www.facebook.com/supercultural2022/" data-tabs="timeline" data-width="330" data-height="450" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/supercultural2022/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/supercultural2022/">Super Cultural</a></blockquote></div>
+								<div class="fb-page" data-href="https://www.facebook.com/supercultural2022/" data-show-posts="true"  data-width="330" data-height="450" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/supercultural2022/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/supercultural2022/">Super Cultural</a></blockquote></div>
 								
 								
 								<div class="featured-author">
@@ -377,12 +377,12 @@
 								<article class="article-mini">
 									<div class="inner">
 										<figure>
-											<a href="{% url 'blog_detail' post.pk %}">
+											<a href="{% url 'detail' post.slug %}">
 												<img src="{{ post.image.url }}" alt="Sample Article">
 											</a>
 										</figure>
 										<div class="padding">
-											<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
 											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>{{ post.visit_num }}</div></a>
 										</div>
 									</div>
@@ -479,12 +479,12 @@
 								<article class="article-mini">
 									<div class="inner">
 										<figure>
-											<a href="{% url 'blog_detail' post.pk %}">
+											<a href="{% url 'detail' post.slug %}">
 												<img src="{{ post.image.url }}" alt="Sample Article">
 											</a>
 										</figure>
 										<div class="padding">
-											<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
 										</div>
 									</div>
 								</article>

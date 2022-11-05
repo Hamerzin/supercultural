@@ -99,12 +99,12 @@
 								<article class="article-mini">
 									<div class="inner">
 										<figure>
-											<a href="{% url 'blog_detail' post.pk %}">
+											<a href="{% url 'detail' post.slug %}">
 												<img src="{{ post.image.url }}" alt="Sample Article">
 											</a>
 										</figure>
 										<div class="padding">
-											<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
 										</div>
 									</div>
 								</article>

@@ -4,14 +4,16 @@ from django.core.mail import EmailMessage
 from .forms import ContactForm
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-
+from django.contrib import messages
 from .forms import CommentForm
 from django.urls import reverse
-from blog.models import Galeria, Post, Category_post, Comment
+from blog.models import Galeria, Post, Category_post, Comment, UserFavorites
 from django.views.generic import ListView
 from django.db.models import Q
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.detail import DetailView
+from django.shortcuts import get_object_or_404
    
 # Create your views here.
 
@@ -106,9 +108,9 @@ def blog_category(request, category_post):
     return render(request, "blog_category.html", context)
 
 
-def blog_detail(request, pk):
+def blog_detail(request, slug):
     
-    post = Post.objects.get(pk=pk)
+    post = Post.objects.get(slug=slug)
     
     post.visit_num += 1
     post.save()
@@ -141,7 +143,7 @@ def blog_detail(request, pk):
             new_comment.post = post
             # save
             new_comment.save()
-            return HttpResponseRedirect(reverse('blog_detail', args=(post.pk,)))
+            return HttpResponseRedirect(reverse('blog_detail', args=(post.slug,)))
     else:
         comment_form = CommentForm()
     posts = Post.objects.filter(status=1).order_by('-created_on')
@@ -244,3 +246,26 @@ def contact(request):
 def about(request):
     cat=Category_post.objects.all()
     return render(request, "about.html",{'categoria':cat})
+
+def favorite(request, pk):
+        favorite = Post.objects.get(pk=pk)
+        favorites=UserFavorites.objects.all()
+
+        favorites.user = request.user
+        favorites.favoritos.add(favorite)
+        favorites.save()
+        messages.add_message(request, messages.INFO, 'Deal Favorited.')
+        return redirect('index')
+
+def favourites(request, slug):
+
+    post = get_object_or_404(UserFavorites, id=slug)
+    if post.favoritos.filter(id=request.user.ide).exist():
+        post.favourites.remove(request.user)
+    else:
+        post.favoritos.add(request.user)
+        
+    
+    return render(request, 'post_detail.html')
+
+    
