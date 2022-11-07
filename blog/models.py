@@ -29,11 +29,13 @@ STATUS = (
 )
 class Teatros(models.Model):
     name=models.CharField(max_length=250)
+    tel=models.IntegerField(blank=True, null=True)
     ubicacion=models.CharField(max_length=250)
     linkmaps=models.CharField(max_length=500,blank=True, null=True)
     imagen1=models.ImageField(upload_to='teatros/', blank=True, null=True)
     imagen2=models.ImageField(upload_to='teatros/', blank=True, null=True)
     pagina=models.CharField(max_length=250,blank=True, null=True)
+    observaciones=models.CharField(max_length=250,blank=True, null=True)
     descripcion=models.TextField()
     
     def __str__(self):
@@ -74,10 +76,8 @@ class Post(models.Model):
     descripcion_imagen3=models.CharField(max_length=400, unique=True, blank=True, null=True)
     image4 = models.ImageField(upload_to='images/',blank=True, null=True)
     descripcion_imagen4=models.CharField(max_length=400, unique=True, blank=True, null=True)
-    
     image5 = models.ImageField(upload_to='images/',blank=True, null=True)
     descripcion_imagen5=models.CharField(max_length=400, unique=True, blank=True, null=True)
-    
     image6 = models.ImageField(upload_to='images/',blank=True, null=True)
     descripcion_imagen6=models.CharField(max_length=400, unique=True, blank=True, null=True)
     image7 = models.ImageField(upload_to='images/',blank=True, null=True)

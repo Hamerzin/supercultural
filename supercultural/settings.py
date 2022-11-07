@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'embed_video',
     'login',
     'gallery',
+    'django_social_share',
 ]
 # Base url to serve media files
 MEDIA_URL = '/media/'
@@ -87,6 +88,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',

@@ -39,6 +39,10 @@ def index(request):
     paginadorgal=Paginator(galeria2, 12)
     num_gal=request.GET.get('1')
     galeria=paginadorgal.get_page(num_gal)
+
+    paginador3=Paginator(posts, 1)
+    num_pagina=request.GET.get('1')
+    post= paginador3.get_page(num_pagina)
     
 
 
@@ -48,6 +52,7 @@ def index(request):
         'ult_post':ult_post,
         'ult_post2':ult_post2,
         "categoria":cat,
+        'post':post,
     }
     return render(request, "index.html", context)
 

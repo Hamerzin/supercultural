@@ -1,21 +1,29 @@
 {%load static%}
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 	<head>
 		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<meta http-equiv="content-language" content="es" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta property="og:url"           content="https://www.supercultural.com.ar/{{post.slug}}" />
-
+		<meta name="robots" content="index, follow"/>
+		<meta name="distribution" content="global"/>
+		<meta name="rating" content="general"/>
+		<meta name="language" content="es_AR.UTF-8"/>
+		<meta http-equiv="content-language" content="es_AR.UTF-8"/>
+		<link rel="canonical" href="http://www.supercultural.com.ar" />
+		{%for x in post%}
+		<meta name="Description" content="{{x.created_on| date:'d M Y'}}-{{x.title}} {{x.short_desciption}}">
+		{%endfor%}
+		<meta name="Keywords" content="Rosario, Santa Fe, cultura,  Argentina,  espectaculos, noticias, prensa, eventos, agenda, fotos, videos, registro de medios, campañas, teatro, cines, artistas, entrevistas, coberturas,peliculas">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<meta name="description" content="Super Cultural , la pagina del espectaculo de rosario">
+		
 		<meta name="author" content="fdipaolo">
 		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4824472377319159"
-     crossorigin="anonymous"></script>
+     	crossorigin="anonymous"></script>
 		<link href="{% static 'images/supercultural.png' %}" rel="icon">
-		<meta name="keyword" content="supercultural, super, cultural, espectaculos, rosario">
-		<!-- Shareable -->
-		<meta property="og:title" content="Super cultural" />
-		<meta property="og:type" content="article" />
+		
+		
 		<title>Super Cultural </title>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="{% static 'scripts/bootstrap/bootstrap.min.css'%}">

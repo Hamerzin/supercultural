@@ -3,7 +3,7 @@
 {% load static  %}
 
 {% block contenidoQueCambia %}
-{% load crispy_forms_tags %} 
+{% load crispy_forms_tags %}
 
   <div id="fb-root"></div>
  	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v15.0" nonce="RAr9Gra6"></script>
@@ -11,116 +11,90 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 sidebar" id="sidebar">
-						
+						{% for Teatros in post.teatro.all %}
 						<aside>
-							<h1 class="aside-title">Lugar de Espectaculo</h1>
-							{% for Teatros in post.teatro.all %}
-							<div class="aside-body">
-								
-								<article class="article">
-									
-									<div class="inner">
-										
-										<figure>
-											
-						  					<li class="active"><a href="#">{{ Teatros.name }}</a></li>
-											<p>Web: <a href="{{Teatros.pagina}}" target="_blank">{{Teatros.pagina}}</a></p>
-											<p>Direccion {{ Teatros.ubicacion }}</p>
+							<ul class="nav nav-tabs nav-justified" role="tablist">
+								<li class="active">
+									<a href="#recomended" aria-controls="recomended" role="tab" data-toggle="tab">
+										<i class="ion-android-star-outline"></i> Lugar de espectaculo
+									</a>
+								</li>
+								<li>
+									<a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">
+										<i class="ion-ios-chatboxes-outline"></i> Ubicacion
+									</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="recomended">
+									<article class="article-fw">
+										<div class="inner">
+											<figure>
+												<a href="{{Teatros.pagina}}" target="_blank">
+													<img src="{{ Teatros.imagen1.url }}" alt="{{Teatros.name}}">
+												</a>
+											</figure>
 											<div class="details">
-												
 												<div class="detail">
-													<iframe src="{{Teatros.linkmaps}}" width="150" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-													<img src="{{ Teatros.imagen1.url }}" style="width: 100px; height:100px;">
+													{%if post.fecha%}
+													<div class="time">{{post.fecha}}</div>
+													{%endif%}
 												</div>
-												<hr>
-												{%if post.precio%}
+												<h1><a href="{{Teatros.pagina}}" target="_blank">{{ Teatros.name }}</a></h1>
+												
+													{%if post.precio%}
 												<div class="detail">
-													
+
 													<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
 											</div>
 											{%endif%}
-											
+											{%if Teatros.descripcion%}
+											<p>{{Teatros.descripcion|safe}}</p>
+											{%endif%}
 											</div>
-											
-										</figure>
-										
-												
-						  
-						  					
-											
-										
-									
-										
-									</div>
-									
-								</article>
-								{% endfor %}
-							
-							
-							{% for Cines in post.cine.all %}
-							<div class="aside-body">
-								
-								<article class="article">
-									
-									<div class="inner">
-										
-										<figure>
-											
-						  					<li class="active"><a href="#">{{ Cines.name }}</a></li>
-											<p>Web: <a href="{{Cines.pagina}}">{{Cines.pagina}}</a></p>
-											<p>Direccion {{ Cines.ubicacion }}</p>
-											<div class="details">
-												
-												<div class="detail">
-													<iframe src="{{Cines.linkmaps}}" width="150" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-													<img src="{{ Cines.imagen1.url }}" style="width: 100px; height:100px;">
-												</div>
-												<div class="detail">
-													<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
-											</div>
-											
-											</div>
-											
-										</figure>
-										
-												
-						  
-						  					
-											
-										
-									
-										
-									</div>
-									
-								</article>
-								{% endfor %}
-								<div class="line"></div>
-								<h1 class="aside-title">Ultimos posts</h1>
-								
-								{% for post in page_obj %}
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="{% url 'detail' post.slug %}">
-												<img src="{{ post.image.url }}">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
-											
 											<div class="detail">
-												{% for category_post in post.categories.all %}
-												<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></div>
-												{% endfor %}
-												<div class="time">{{ post.created_on | timesince }}</div>
+												<div class="time">
+													<p>Visita la pagina de la sede de este evento</p>
+												<a href="{{Teatros.pagina}}" target="_blank" style="font-size: 10px;">{{Teatros.pagina}}</a>
 											</div>
-
 										</div>
+									</article>
+									
+									
+									
+								</div>
+								<div class="tab-pane comments" id="comments">
+									<div class="comment-list sm">
+										<div class="item">
+										                              
+												<iframe src="{{Teatros.linkmaps}}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+												<div class="details">
+													<h5 class="name">{{Teatros.name}}</h5>
+													<div class="time">Direccion</div>
+													<div class="description">
+														{{Teatros.ubicacion}}
+													</div>
+													<div class="time">Telefono: 	{{Teatros.tel}}    </div>
+													
+													<div class="description">
+														Web: <a href="{{Teatros.pagina}}">{{Teatros.pagina}}</a>
+													</div>
+													{%if Teatros.observaciones%}
+													<div class="description">
+													Observaciones : {{Teatros.observaciones}}
+													</div>
+													{%endif%}
+												</div>
+											
+										</div>
+										
 									</div>
-								</article>
-								{% endfor %}
+								</div>
 							</div>
 						</aside>
+						{%endfor%}
+
+						
 						<aside>
 							<div class="aside-body">
 								<form class="newsletter">
@@ -144,9 +118,9 @@
 						  <li><a href="#">Home</a></li>
 						  {% for category_post in post.categories.all %}
 						  <li class="active"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></li>
-						  
+
 						  {% endfor %}
-						 
+
 						</ol>
 						<article class="article main-article">
 							<header>
@@ -154,62 +128,117 @@
 								<ul class="details">
 									<li>{{ post.created_on }}</li>
 									<li><a>Visitas </a>{{ post.visit_num }} </li>
-									<li>Autor <a href="#">{{ post.author.last_name }}</a></li>
+									<li>Autor <a href="#">{{ post.author.first_name }}</a></li>
 								</ul>
 							</header>
 							<div class="main">
-								{%if post.fecha%} 
+								{%if post.fecha%}
 								<p>Fecha: {{post.fecha}}  </p>
 								{%endif%}
 								{%if post.hora%}
 
 								<p>Hora:   {{post.hora}}</p>
 								{%endif%}
-								
+
 								<p> {{ post.short_desciption | safe }}</p>
 								{%if post.mp3 %}
 								<p> Audio de la nota:</p>
 								<audio src="{{post.mp3.url}}" controls="controls" type="audio/mpeg" preload="preload" style='margin-left: auto; margin-right:auto ; display: block;'></audio>
 								{%endif%}
 								<div class="featured">
-									<div class="fotorama" data-nav="thumbs"   data-allowfullscreen="true"
+									<div class="fotorama" data-nav="thumbs"   data-allowfullscreen="native"
      								data-width="100%"
-    								 data-ratio="800/600"
-     								data-minwidth="400"
-     								data-maxwidth="1000"
-    								 data-minheight="300"
-     									data-maxheight="95%">
-									
+									data-height="70%"
+									 data-loop="true"
+									 data-keyboard="true">
+										{%if post.image%}
+										{%if post.descripcion_imagen%}
+										<img src="{{post.image.url}}" data-caption="{{post.descripcion_imagen}}">
+										{%else%}
 										<img src="{{post.image.url}}">
-										{%if post.image2 %}
+										{%endif%}
+										{%endif%}
+										
+										
+										{%if post.image2%}
+										{%if post.descripcion_imagen2%}
+										<img src="{{post.image2.url}}" data-caption="{{post.descripcion_imagen2}}">
+										{%else%}
 										<img src="{{post.image2.url}}">
 										{%endif%}
-										{%if post.image3 %}
+										{%endif%}
+
+
+										{%if post.image3%}
+										{%if post.descripcion_imagen3%}
+										<img src="{{post.image3.url}}" data-caption="{{post.descripcion_imagen3}}">
+										{%else%}
 										<img src="{{post.image3.url}}">
 										{%endif%}
-										{%if post.image4 %}
+										{%endif%}
+																				
+										{%if post.image4%}
+										{%if post.descripcion_imagen4%}
+										<img src="{{post.image4.url}}" data-caption="{{post.descripcion_imagen4}}">
+										{%else%}
 										<img src="{{post.image4.url}}">
 										{%endif%}
-										{%if post.image5 %}
+										{%endif%}
+																				
+										{%if post.image5%}
+										{%if post.descripcion_imagen5%}
+										<img src="{{post.image5.url}}" data-caption="{{post.descripcion_imagen5}}">
+										{%else%}
 										<img src="{{post.image5.url}}">
 										{%endif%}
-										{%if post.image6 %}
+										{%endif%}
+																				
+										{%if post.image6%}
+										{%if post.descripcion_imagen6%}
+										<img src="{{post.image6.url}}" data-caption="{{post.descripcion_imagen6}}">
+										{%else%}
 										<img src="{{post.image6.url}}">
 										{%endif%}
-										{%if post.image7 %}
+										{%endif%}
+																				
+										{%if post.image7%}
+										{%if post.descripcion_imagen7%}
+										<img src="{{post.image7.url}}" data-caption="{{post.descripcion_imagen7}}">
+										{%else%}
 										<img src="{{post.image7.url}}">
 										{%endif%}
-										{%if post.image8 %}
+										{%endif%}
+																				
+										{%if post.image8%}
+										{%if post.descripcion_imagen8%}
+										<img src="{{post.image8.url}}" data-caption="{{post.descripcion_imagen8}}">
+										{%else%}
 										<img src="{{post.image8.url}}">
 										{%endif%}
-										{%if post.image9 %}
+										{%endif%}
+																				
+										{%if post.image9%}
+										{%if post.descripcion_imagen9%}
+										<img src="{{post.image9.url}}" data-caption="{{post.descripcion_imagen9}}">
+										{%else%}
 										<img src="{{post.image9.url}}">
 										{%endif%}
-										{%if post.image10 %}
+										{%endif%}
+																				
+										{%if post.image10%}
+										{%if post.descripcion_imagen10%}
+										<img src="{{post.image10.url}}" data-caption="{{post.descripcion_imagen10}}">
+										{%else%}
 										<img src="{{post.image10.url}}">
 										{%endif%}
-										{%if post.image11 %}
+										{%endif%}
+																				
+										{%if post.image11%}
+										{%if post.descripcion_imagen11%}
+										<img src="{{post.image11.url}}" data-caption="{{post.descripcion_imagen11}}">
+										{%else%}
 										<img src="{{post.image11.url}}">
+										{%endif%}
 										{%endif%}
 									  </div>
 									<div class="details">
@@ -221,15 +250,15 @@
 							{%if post.precio%}
 							<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
 							{%endif%}
-							<div class="fb-like" data-href="https://www.supercultural.com.ar/{{post.slug}}/" data-width="200" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
-							{% if post.linkyoutube %}	
+							<div class="fb-like" data-href="https://www.supercultural.com.ar/{{post.slug}}" data-width="200" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+							{% if post.linkyoutube %}
 							<p>Disfruta un adelanto de video</p>
 						<div class="embed-container">
-							
-									
+
+
 									<iframe width="560" height="315" src="{{post.linkyoutube}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-															
+
 						</div>
 						{%endif%}
 							<footer>
@@ -239,7 +268,7 @@
 
 										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
 										{%endfor%}
-										
+
 									</ul>
 								</div>
 								<div class="col">
@@ -251,30 +280,27 @@
 						<div class="title"><i class="ion-android-share-alt"></i> Comparti!!</div>
 							<ul class="social">
 								<li>
-									<a href="https://www.facebook.com/sharer/sharer.php?u=www.supercultural.com.ar/{{post.slug}}/" class="facebook">
+									<a href="https://www.facebook.com/sharer/sharer.php?u=www.supercultural.com.ar/{{post.slug}}" class="facebook" target="_blank">
 										<i class="ion-social-facebook"></i> Facebook
 									</a>
 								</li>
 								<li>
-									<a href="#" class="twitter">
-										<i class="ion-social-twitter"></i> Twitter
+									<a href="https://api.whatsapp.com/send?text={{post.short_desciption}}%20https%3A%2F%2Fwww.supercultural.com.ar%2F{{post.slug}}" class="whatsapp">
+
+										<i class="ion-social-whatsapp"></i> Whatsapp
 									</a>
 								</li>
-								<li>
-									<a href="#" class="googleplus">
-										<i class="ion-social-googleplus"></i> Google+
+
+								</li>
+									<li>
+									<a href="mailto:?subject=Te recomiendo este articulo de Super Cultural Rosario&body=Lee este articulo de Super Cultural: www.supercultural.com.ar/{{post.slug}}"  title="Enviar por mail" class="youtube">
+										<i class="icon ion-email"></i> Email
 									</a>
 								</li>
-								<li>
-									<a href="#" class="linkedin">
-										<i class="ion-social-linkedin"></i> Linkedin
-									</a>
-								</li>
-								<li>
-									<a href="#" class="skype">
-										<i class="ion-ios-email-outline"></i> Email
-									</a>
-								</li>
+
+
+
+
 								<li class="count">
 									20
 									<div>Shares</div>
@@ -286,11 +312,11 @@
 						</div>
 						<div class="author">
 							<figure>
-								
-								
+
+
 								<img src="{{post.bio.avatar.url}}" alt="">
-								
-								
+
+
 							</figure>
 							<div class="details">
 								<div class="job">Periodista </div>
@@ -326,22 +352,22 @@
 						</div>
 						<div class="line"><div>Dejanos tu comentario</div></div>
 						<div class="fb-comments" data-href="https://www.supercultural.com.ar/{{post.slug}}/" data-width="700" data-numposts="10"></div>
-						
-						
+
+
 						<hr>
 						</div>
-						
+
 						<div class="card-body">
-						
+
 						</div>
 					</div>
 				</div>
-						{% load crispy_forms_tags %} 
+						{% load crispy_forms_tags %}
 						<!-- Dynamic Comments-->
-						<!-- Comments Form --> 
-							
-						</div>		
-						
+						<!-- Comments Form -->
+
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -349,8 +375,8 @@
 
 
 	</div>
-         
-	
+
+
 
 	<!-- Start footer -->
 	<footer class="footer">
@@ -379,20 +405,20 @@
 
 									<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
 									{%endfor%}
-								
+
 							</ul>
 						</div>
 					</div>
 					<div class="line"></div>
-					
+
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<div class="block">
 						<h1 class="block-title">Ultimos eventos</h1>
 						<div class="block-body">
-							
 
-												{% for post in page_obj %}			
+
+												{% for post in page_obj %}
 							<article class="article-mini">
 								<div class="inner">
 									<figure>
@@ -422,29 +448,29 @@
 										<i class="ion-social-facebook"></i>
 									</a>
 								</li>
-								
+
 								<li>
 									<a href="#" class="youtube">
 										<svg><rect width="0" height="0"/></svg>
 										<i class="ion-social-youtube-outline"></i>
 									</a>
 								</li>
-								
+
 								<li>
 									<a href="https://www.instagram.com/super.cultural/" class="instagram" target="_blank">
 										<svg><rect width="0" height="0"/></svg>
 										<i class="ion-social-instagram-outline"></i>
 									</a>
 								</li>
-								
+
 								<li>
 									<a href="#" class="linkedin">
 										<svg><rect width="0" height="0"/></svg>
 										<i class="ion-social-linkedin"></i>
 									</a>
 								</li>
-								
-								
+
+
 							</ul>
 						</div>
 					</div>
@@ -452,7 +478,7 @@
 					<div class="block">
 						<div class="block-body no-margin">
 							<ul class="footer-nav-horizontal">
-								<li><a href="index.html">Home</a></li>
+								<li><a href="{%url 'index'%}">Home</a></li>
 								<li><a href="#">Partner</a></li>
 								<li><a href="contact.html">Contact</a></li>
 								<li><a href="page.html">About</a></li>
