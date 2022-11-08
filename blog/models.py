@@ -100,6 +100,9 @@ class Post(models.Model):
         self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return f'/{self.slug}'
+
   
 class UserFavorites(models.Model):
     user=models.ForeignKey(User, on_delete= models.CASCADE, related_name='user_fav')
