@@ -87,7 +87,6 @@
 			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10897.437562392275!2d-60.668926323386685!3d-32.9591186403351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab71d4358d3f%3A0xb7ef373f1ab15369!2sParque%20Independencia%2C%20S2000%20Rosario%2C%20Santa%20Fe%2C%20Argentina!5e1!3m2!1ses-419!2sid!4v1667339036389!5m2!1ses-419!2sid" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 		</section>
 
-		<!-- Start footer -->
 		<footer class="footer">
 			<div class="container">
 				<div class="row">
@@ -114,29 +113,29 @@
 
 										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
 										{%endfor%}
-									
+
 								</ul>
 							</div>
 						</div>
 						<div class="line"></div>
-						
+
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="block">
 							<h1 class="block-title">Ultimos eventos</h1>
 							<div class="block-body">
-								
 
-													{% for post in page_obj %}			
+
+													{% for post in page_obj %}
 								<article class="article-mini">
 									<div class="inner">
 										<figure>
-											<a href="{% url 'blog_detail' post.pk %}">
+											<a href="{% url 'detail' post.slug %}">
 												<img src="{{ post.image.url }}" alt="Sample Article">
 											</a>
 										</figure>
 										<div class="padding">
-											<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
 										</div>
 									</div>
 								</article>
@@ -157,29 +156,29 @@
 											<i class="ion-social-facebook"></i>
 										</a>
 									</li>
-									
+
 									<li>
 										<a href="#" class="youtube">
 											<svg><rect width="0" height="0"/></svg>
 											<i class="ion-social-youtube-outline"></i>
 										</a>
 									</li>
-									
+
 									<li>
 										<a href="https://www.instagram.com/super.cultural/" class="instagram" target="_blank">
 											<svg><rect width="0" height="0"/></svg>
 											<i class="ion-social-instagram-outline"></i>
 										</a>
 									</li>
-									
+
 									<li>
 										<a href="#" class="linkedin">
 											<svg><rect width="0" height="0"/></svg>
 											<i class="ion-social-linkedin"></i>
 										</a>
 									</li>
-									
-									
+
+
 								</ul>
 							</div>
 						</div>
@@ -211,18 +210,23 @@
 		<!-- End Footer -->
 
 		<!-- JS -->
-		<script src="js/jquery.js"></script>
-		<script src="js/jquery.migrate.js"></script>
-		<script src="scripts/bootstrap/bootstrap.min.js"></script>
+		<script src="{% static 'js/jquery.js'%}"></script>
+		<script src="{% static 'js/jquery.migrate.js'%}"></script>
+		<script src="{% static 'scripts/bootstrap/bootstrap.min.js'%}"></script>
 		<script>var $target_end=$(".best-of-the-week");</script>
-		<script src="scripts/jquery-number/jquery.number.min.js"></script>
-		<script src="scripts/owlcarousel/dist/owl.carousel.min.js"></script>
-		<script src="scripts/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-		<script src="scripts/easescroll/jquery.easeScroll.js"></script>
-		<script src="scripts/sweetalert/dist/sweetalert.min.js"></script>
-		<script src="scripts/toast/jquery.toast.min.js"></script>
-		<script src="js/demo.js"></script>
-		<script src="js/e-magz.js"></script>
+		<script src="{% static 'scripts/jquery-number/jquery.number.min.js'%}"></script>
+		<script src="{% static 'scripts/owlcarousel/dist/owl.carousel.min.js'%}"></script>
+		<script src="{% static 'scripts/magnific-popup/dist/jquery.magnific-popup.min.js'%}"></script>
+		<script src="{% static 'scripts/easescroll/jquery.easeScroll.js'%}"></script>
+		<script src="{% static 'scripts/sweetalert/dist/sweetalert.min.js'%}"></script>
+		<script src="{% static 'scripts/toast/jquery.toast.min.js'%}"></script>
+		<script src="{% static 'js/demo.js'%}"></script>
+		<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce="0v2F1ojE"></script>
+		<script src="{% static 'js/e-magz.js'%}"></script>
+		<script src="{% static 'js/platform.js'%}"></script>
+		<div id="fb-root"></div>
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce="dNzaDOEu"></script>
 	</body>
 
 {%endblock%}

@@ -179,9 +179,21 @@ def buscar(request):
     if query:
             resultados="Resultados para:"
             posts_list = Post.objects.filter(Q(title__icontains=query)|Q(short_desciption__icontains=query)|Q(teatro__name__icontains=query)|Q(cine__name__icontains=query)|Q(categories__name__icontains=query)|Q(content__icontains=query)).distinct()
+            posts = Post.objects.filter(status=1).order_by('-created_on')
+            posts2 = Post.objects.filter(status=1).order_by('-visit_num')
             cantidad=(len(posts_list))
-            paginator = Paginator(posts_list, 2)
+            paginator = Paginator(posts_list, 5)
             page_number = request.GET.get('page')
+
+            paginador2=Paginator(posts2, 3)
+            num_pagina2=request.GET.get('page')
+            ult_post2= paginador2.get_page(num_pagina2)
+
+            paginator3 = Paginator(posts, 3)
+            page_number = request.GET.get('page')
+            page_obj = paginator3.get_page(page_number)
+            cat=Category_post.objects.all()
+    
             try:
                 posts = paginator.page(page_number)
             except PageNotAnInteger:
@@ -200,7 +212,8 @@ def buscar(request):
                 "actual":actual,
                 "total":total,
                 "categoria":cat,
-
+                'ult_post2':ult_post2,
+                "page_obj":page_obj,
                 }
         
             

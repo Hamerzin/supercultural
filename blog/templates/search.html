@@ -68,7 +68,7 @@
 							<article class="col-md-12 article-list">
 								<div class="inner">
 									<figure>
-										<a href="{% url 'blog_detail' pro.pk %}">
+										<a href="{% url 'detail' pro.slug %}">
 											<img src="{{pro.image.url}}">
 										</a>
 									</figure>
@@ -81,13 +81,13 @@
 											
 										</div>
 										<time>{{pro.created_on|timesince }}</time>
-										<h1><a href="{% url 'blog_detail' pro.pk %}">{{pro.title}}</a></h1>
+										<h1><a href="{% url 'detail' pro.slug %}">{{pro.title}}</a></h1>
 										<p>
 										{{pro.short_desciption}}
 										</p>
 										<footer>
 											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>{{pro.visit_num}}</div></a>
-											<a class="btn btn-primary more" href="{% url 'blog_detail' pro.pk %}">
+											<a class="btn btn-primary more" href="{% url 'detail' pro.slug %}">
 												<div>Mas info</div>
 												<div><i class="ion-ios-arrow-thin-right"></i></div>
 											</a>
@@ -183,7 +183,7 @@
 											</a>
 										</figure>
 										<div class="padding">
-											<h1><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h1>
+											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
 										</div>
 									</div>
 								</article>
