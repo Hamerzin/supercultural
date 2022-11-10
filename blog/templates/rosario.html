@@ -1,0 +1,341 @@
+
+{% extends "nav.html" %}
+
+{% load static  %}
+
+{% block contenidoQueCambia %}
+{% load crispy_forms_tags %} 
+		<section class="single">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 sidebar" id="sidebar">
+						
+						<aside>
+							<h1 class="aside-title">La ciudad</h1>
+							<div class="aside-body">
+								<article class="article-fw">
+									<div class="inner">
+										<figure>
+											<a href="#caracteristicas">												
+												<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Rosario%27s_street.jpg/800px-Rosario%27s_street.jpg">
+											</a>
+										</figure>
+										<div class="details">
+											<h1><a href="#caracteristicas">Caracteristicas principales</a></h1>
+											
+										</div>
+									</div>
+								</article>
+								<article class="article-fw">
+									<div class="inner">
+										<figure>
+											<a href="#cultura">												
+												<img src="data:image/jpeg;base64,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">
+											</a>
+										</figure>
+										<div class="details">
+											<h1><a href="#cultura">Cultura</a></h1>
+											
+										</div>
+									</div>
+								</article>
+								<article class="article-fw">
+									<div class="inner">
+										<figure>
+											<a href="#teatros">												
+												<img src="https://descubrirturismo.com/wp-content/uploads/2019/06/rosario-edificio.png">
+											</a>
+										</figure>
+										<div class="details">
+											<h1><a href="#teatros">Teatros</a></h1>
+											
+										</div>
+									</div>
+								</article>								
+						</aside>
+						<aside>
+							<div class="aside-body">
+								<form class="newsletter">
+									<div class="icon">
+										<i class="ion-ios-email-outline"></i>
+										<h1>Newsletter</h1>
+									</div>
+									<div class="input-group">
+										<input type="email" class="form-control email" placeholder="Your mail">
+										<div class="input-group-btn">
+											<button class="btn btn-primary"><i class="ion-paper-airplane"></i></button>
+										</div>
+									</div>
+									<p>By subscribing you will receive new articles in your email.</p>
+								</form>
+							</div>
+						</aside>
+					</div>
+					<div class="col-md-8">
+						<ol class="breadcrumb">
+						  <li><a href="#">Home</a></li>
+						  <li class="active">Film</li>
+						</ol>
+						<article class="article main-article">
+							<header>
+								<h1>Rosario, la ciudad mas cultural de Argentina</h1>
+								<ul class="details">
+									<li>Posteado el  10 de Noviembre, 2022</li>
+									<li><a>La Ciudad</a></li>
+									<li>Por <a href="#">Natali</a></li>
+								</ul>
+							</header>
+							<div class="main">
+								<p>Te presentamos un reseña de nuestra ciudad, donde esta ubicada su economia y sobre todo una recorrida sobre la cultura y la noche rosarina y de la zona</p>
+								<div class="featured" id="caracteristicas">
+									<figure>
+										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Puente_Rosario_-_Victoria_tomada_desde_un_Villa_Cari%C3%B1o_de_Baigorrina..jpg/800px-Puente_Rosario_-_Victoria_tomada_desde_un_Villa_Cari%C3%B1o_de_Baigorrina..jpg">
+										<figcaption>Image by Wikipedia</figcaption>
+									</figure>
+								</div>
+
+								
+								<p >Rosario es una ciudad situada en el sudeste de la provincia de Santa Fe, Argentina, cabecera del departamento homónimo. Se trata de la urbe más poblada de la provincia y la tercera del país incluyendo su conurbano.
+									Está situada en la margen occidental del río Paraná, parte de la hidrovía Paraná-Paraguay, sobre el que está enclavado un puerto de 140 hectáreas que maneja tanto cargas generales como a granel.
+								</p>	
+								<p>
+									Junto a varias localidades de la zona conforma el Área Metropolitana Rosario (con 1 501 880 habitantes, según el censo de 2022), que excede e incluye al Gran Rosario (el tercer conglomerado urbano del país con 1 236 089 personas)2 y al departamento Rosario. En 2021 se proyectó una población para el departamento Rosario (compuesto por la ciudad de Rosario y otros 23 municipios más) de 1 399 364 personas, según datos proporcionados por el INDEC (Instituto Nacional de Estadística y Censos).2Según la misma proyección, el municipio de Rosario contaba con 948 312 habitantes.25
+									La metrópolis forma parte de una región de gran importancia económica. Cerca del 70% de la producción de cereales del país se exporta a través de su puerto.67El Gran Rosario generaba hasta 2015 el primer PBI per cápita de Argentina y el segundo de Latinoamérica luego de Brasilia, siendo a su vez el segundo PBI urbano de Argentina, tomando toda su conglomeración urbana, por detrás del Gran Córdoba y detrás del Gran Buenos Aires.
+								</p>
+								<p>
+									Rosario es conocida como la Cuna de la Bandera Argentina y su edificación más conocida es el Monumento a la Bandera. Foco educativo y cultural, cuenta además con importantes museos y bibliotecas y su infraestructura turística incluye circuitos arquitectónicos, paseos, bulevares, parques y hoteles.
+								<br id="cultura">
+								<p ><h3>Cultura</b></h3>
+									
+								<p>Rosario es uno de los principales centros urbanos en donde se habla el dialecto castellano rioplatense. El «castellano rosarino», aunque no se diferencia substancialmente de las otras variantes del mismo dialecto, presenta particularidades fácilmente reconocibles por los hispanohablantes de los otros grandes centros urbanos de la región. 
+								</p>
+									<p> Una de las características más notables de la lengua de la zona de Rosario es el proceso de aspiración y desaparición de la -s, muy intenso en la ciudad, a tal punto, que se lo considera una de las características más notables del castellano de la zona. Además, cuando la -s se ubica en posición implosiva, final de sílaba o palabra, subseguida de consonante, se evidencia su aspiración sorda y suave [h] (asistir se pronuncia aˈsihtir), que llega a la supresión total en el lenguaje popular.94​
+
+									Al igual que en Buenos Aires, el voseo es pronominal y verbal. El pronombre tú y sus formas verbales asociadas son inexistentes (a diferencia de la variante montevideana). En Rosario no existe la tendencia porteña a añadir una -s al final de las formas verbales de la 2.ª persona del singular (vos fuistes, vos vinistes). Existen también diferencias de entonación, siendo la rosarina generalmente más neutra o monótona que la de las variantes porteñas.
+									
+									Asimismo, aunque el léxico rosarino es similar al porteño, existen muchos términos y expresiones idiomáticas que Rosario comparte con el resto del interior del país y no con la capital, así como también aquellos que son propios de la ciudad, tanto del habla formal como informal, que no obstante, son más notorios en las jergas locales.
+								</p>
+									<p>
+									
+									El rosarigasino o «gasó» es un tipo de jerigonza nacida en Rosario, que se difundió a mediados del siglo XX en la ciudad, haciéndose muy popular, y que fue rescatado y popularizado por el humorista Alberto Olmedo en los años 80. Por lo visto, es muy útil utilizar esta jerga para cuando quieres evitar que los demás oigan una conversación privada, y hoy en día su uso ha decaído un poco con el paso de los años, aunque existen manuales para su sencillo aprendizaje y hoy en día es utilizado en tono jocoso por los rosarinos, y para nombrar establecimientos o por fines publicitarios.</p>
+
+									<br id="teatros">
+									<p ><h3>Teatros</b></h3>
+										<p>En Rosario hay gran pasión por el teatro, contando con más de treinta salas. Tanto en los grandes recintos como en la extensa cadena de centros teatrales, los autores, directores y actores locales vuelcan su rica obra que muchas veces logra alcance nacional. Son joyas de la ciudad grandes salas como El Círculo, La Comedia, la sala Lavardén o el Auditorio Fundación Astengo.
+
+											El gusto y la exigencia del público rosarino son reconocidos tanto por los críticos como por los artistas, que a menudo hacen de la ciudad su lugar de estreno (el grupo músico-cómico Les Luthiers lo ha hecho con muchos de sus espectáculos).
+											
+											En 1964 surge Los Gatos Salvajes pionero del rock en español y antecesor del exitoso grupo Los Gatos.
+											
+											En la década de 1980 sucedió el boom de la Trova rosarina, con la edición del LP Tiempos difíciles, de Juan Carlos Baglietto, en el que participa un joven Fito Páez (1963-); hoy día uno de los músicos solistas argentinos más reconocido a nivel internacional.
+											
+											En esta ciudad también han nacido otros intérpretes y agrupaciones de gran renombre internacional y nacional como Antonio Agri, Rodolfo «Cholo» Montironi, Cristián Hernández Larguía (1921-2016), Gato Barbieri, Ernesto Bitetti, Franco Luciani, así como los grupos Los Trovadores del Norte, Vilma Palma e Vampiros, Cielo Razzo, entre otros.</p>
+										<p>Lista de teatros</p>
+											<ul>
+												
+												<li>Anfiteatro Municipal Huberto de nito</li>
+												<li>Complejo Cultural Atlas</li>
+												<li>Teatro El Círculo</li>
+												<li>Teatro La Comedia</li>
+												<li>Teatro Broadway</li>
+												<li>Plataforma Lavardén</li>
+												<li>Teatro Mateo Booz</li>
+												<li>Teatro Fundacion astengo</li>
+																							</ul>
+							</div>
+							<footer>
+								<div class="col">
+									<ul class="tags">
+										<li><a href="#">Free Themes</a></li>
+										<li><a href="#">Bootstrap 3</a></li>
+										<li><a href="#">Responsive Web Design</a></li>
+										<li><a href="#">HTML5</a></li>
+										<li><a href="#">CSS3</a></li>
+										<li><a href="#">Web Design</a></li>
+									</ul>
+								</div>
+								<div class="col">
+									<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>1220</div></a>
+								</div>
+							</footer>
+						</article>
+						<div class="sharing">
+						<div class="title"><i class="ion-android-share-alt"></i> Sharing is caring</div>
+							<ul class="social">
+								<li>
+									<a href="#" class="facebook">
+										<i class="ion-social-facebook"></i> Facebook
+									</a>
+								</li>
+								<li>
+									<a href="#" class="twitter">
+										<i class="ion-social-twitter"></i> Twitter
+									</a>
+								</li>
+								<li>
+									<a href="#" class="googleplus">
+										<i class="ion-social-googleplus"></i> Google+
+									</a>
+								</li>
+								<li>
+									<a href="#" class="linkedin">
+										<i class="ion-social-linkedin"></i> Linkedin
+									</a>
+								</li>
+								<li>
+									<a href="#" class="skype">
+										<i class="ion-ios-email-outline"></i> Email
+									</a>
+								</li>
+								<li class="count">
+									20
+									<div>Shares</div>
+								</li>
+							</ul>
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Start footer -->
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Super Cultural</h1>
+							<div class="block-body">
+								<figure class="foot-logo">
+									<img src="{% static 'images/logo2.jpeg'%}" class="img-responsive" alt="Logo">
+								</figure>
+								<p class="brand-description">
+									Espectaculos y Eventos &amp; Toda la info sobre Rosario y zona.
+								</p>
+								<a href="{%url 'contact'%}" class="btn btn-magz white">Sobre nosotros <i class="ion-ios-arrow-thin-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Tags Populares<div class="right"><a href="{%url 'todo'%}">Ver todo <i class="ion-ios-arrow-thin-right"></i></a></div></h1>
+							<div class="block-body">
+								<ul class="tags">
+									{%for cat in categoria%}
+
+										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+										{%endfor%}
+
+								</ul>
+							</div>
+						</div>
+						<div class="line"></div>
+
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Ultimos eventos</h1>
+							<div class="block-body">
+
+
+													{% for post in page_obj %}
+								<article class="article-mini">
+									<div class="inner">
+										<figure>
+											<a href="{% url 'detail' post.slug %}">
+												<img src="{{ post.image.url }}" alt="Sample Article">
+											</a>
+										</figure>
+										<div class="padding">
+											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
+										</div>
+									</div>
+								</article>
+								{%endfor%}
+								<a href="{%url 'todo'%}" class="btn btn-magz white btn-block">Ver todo <i class="ion-ios-arrow-thin-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-12 col-sm-6">
+						<div class="block">
+							<h1 class="block-title">Seguinos</h1>
+							<div class="block-body">
+								<p>Seguinos en nustras redes y m</p>
+								<ul class="social trp">
+									<li>
+										<a href="https://www.facebook.com/supercultural2022/" class="facebook" target="_blank">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-facebook"></i>
+										</a>
+									</li>
+
+									<li>
+										<a href="#" class="youtube">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-youtube-outline"></i>
+										</a>
+									</li>
+
+									<li>
+										<a href="https://www.instagram.com/super.cultural/" class="instagram" target="_blank">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-instagram-outline"></i>
+										</a>
+									</li>
+
+									<li>
+										<a href="#" class="linkedin">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-linkedin"></i>
+										</a>
+									</li>
+
+
+								</ul>
+							</div>
+						</div>
+						<div class="line"></div>
+						<div class="block">
+							<div class="block-body no-margin">
+								<ul class="footer-nav-horizontal">
+									<li><a href="index.html">Home</a></li>
+									<li><a href="#">Partner</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="page.html">About</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="copyright">
+							COPYRIGHT &copy;Todo los Derechos Reservados
+							<div>
+								Diseñado  <i class="ion-heart"></i> por <a href="https://www.linkedin.com/in/fabian-di-paolo" target="_blank">DiPA Dev</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- End Footer -->
+
+		<!-- JS -->
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery.migrate.js"></script>
+		<script src="scripts/bootstrap/bootstrap.min.js"></script>
+		<script>var $target_end=$(".best-of-the-week");</script>
+		<script src="scripts/jquery-number/jquery.number.min.js"></script>
+		<script src="scripts/owlcarousel/dist/owl.carousel.min.js"></script>
+		<script src="scripts/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+		<script src="scripts/easescroll/jquery.easeScroll.js"></script>
+		<script src="scripts/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="scripts/toast/jquery.toast.min.js"></script>
+		<script src="js/demo.js"></script>
+		<script src="js/e-magz.js"></script>
+	</body>
+</html>
+{%endblock%}

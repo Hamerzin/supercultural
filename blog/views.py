@@ -286,4 +286,7 @@ def favourites(request, slug):
     
     return render(request, 'post_detail.html')
 
+def rosario(request):
+    return render(request, "rosario.html")
+
     
