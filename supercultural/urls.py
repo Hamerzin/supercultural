@@ -19,17 +19,22 @@ from django.urls import include
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 from django.views.static import serve as mediaserve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
+
 urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('blog.urls')),
-    path('', include('login.urls')),
+    path('login/', include('login.urls')),
     path('gallery/gallery/', include('gallery.urls')),
-    path('summernote/', include('django_summernote.urls')),
+        path('summernote/', include('django_summernote.urls')),
+    path('accounts/accounts/',include('django.contrib.auth.urls')),
+    
+    
     
 ]
 

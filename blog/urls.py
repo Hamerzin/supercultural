@@ -1,8 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from blog import views
 from django.contrib.auth.views import LogoutView
 from .sitemaps import PostSiteMap
 from django.contrib.sitemaps.views import sitemap
+
+
 
 sitemaps = {
     'posts': PostSiteMap, # El key de este diccionario puede ser cualquier nombre
@@ -20,5 +22,6 @@ urlpatterns=[
     path('logout/logout/', LogoutView.as_view(template_name='index.html'), name = 'logout'),
     path('<slug:slug>/', views.favourites, name='favorite'),
     path(route='<slug:slug>', view=views.blog_detail, name='detail'),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    
 ]

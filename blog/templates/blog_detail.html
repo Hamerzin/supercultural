@@ -16,12 +16,12 @@
 							<ul class="nav nav-tabs nav-justified" role="tablist">
 								<li class="active">
 									<a href="#recomended" aria-controls="recomended" role="tab" data-toggle="tab">
-										<i class="ion-android-star-outline"></i> Lugar de espectaculo
+										<i class="ion-ios-home-outline"></i> Lugar de espectaculo
 									</a>
 								</li>
 								<li>
 									<a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">
-										<i class="ion-ios-chatboxes-outline"></i> Ubicacion
+										<i class="ion-ios-location-outline"></i> Ubicacion
 									</a>
 								</li>
 							</ul>
@@ -146,11 +146,21 @@
 								<audio src="{{post.mp3.url}}" controls="controls" type="audio/mpeg" preload="preload" style='margin-left: auto; margin-right:auto ; display: block;'></audio>
 								{%endif%}
 								<div class="featured">
+									{%if post.es_entrevista%}
+									 <div class="embed-container">
+
+
+										<iframe width="560" height="315" src="{{post.linkyoutube}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	
+	
+							</div>
+							{%else%}
 									<div class="fotorama" data-nav="thumbs"   data-allowfullscreen="native"
      								data-width="100%"
 									data-height="70%"
 									 data-loop="true"
 									 data-keyboard="true">
+									 
 										{%if post.image%}
 										{%if post.descripcion_imagen%}
 										<img src="{{post.image.url}}" data-caption="{{post.descripcion_imagen}}">
@@ -241,6 +251,7 @@
 										{%endif%}
 										{%endif%}
 									  </div>
+									  {%endif%}
 									<div class="details">
 										<h2 style="color: white;"> </h2>
 									</div>
@@ -251,16 +262,117 @@
 							<div><p>Precio de anticipadas desde : $ {{post.precio}}</p></div>
 							{%endif%}
 							<div class="fb-like" data-href="https://www.supercultural.com.ar/{{post.slug}}" data-width="200" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+							{%if post.es_entrevista%}
+							<div class="featured">
+							<div class="fotorama" data-nav="thumbs"   data-allowfullscreen="native"
+     								data-width="100%"
+									data-height="70%"
+									 data-loop="true"
+									 data-keyboard="true">
+									 
+										{%if post.image%}
+										{%if post.descripcion_imagen%}
+										<img src="{{post.image.url}}" data-caption="{{post.descripcion_imagen}}">
+										{%else%}
+										<img src="{{post.image.url}}">
+										{%endif%}
+										{%endif%}
+										
+										
+										{%if post.image2%}
+										{%if post.descripcion_imagen2%}
+										<img src="{{post.image2.url}}" data-caption="{{post.descripcion_imagen2}}">
+										{%else%}
+										<img src="{{post.image2.url}}">
+										{%endif%}
+										{%endif%}
+
+
+										{%if post.image3%}
+										{%if post.descripcion_imagen3%}
+										<img src="{{post.image3.url}}" data-caption="{{post.descripcion_imagen3}}">
+										{%else%}
+										<img src="{{post.image3.url}}">
+										{%endif%}
+										{%endif%}
+																				
+										{%if post.image4%}
+										{%if post.descripcion_imagen4%}
+										<img src="{{post.image4.url}}" data-caption="{{post.descripcion_imagen4}}">
+										{%else%}
+										<img src="{{post.image4.url}}">
+										{%endif%}
+										{%endif%}
+																				
+										{%if post.image5%}
+										{%if post.descripcion_imagen5%}
+										<img src="{{post.image5.url}}" data-caption="{{post.descripcion_imagen5}}">
+										{%else%}
+										<img src="{{post.image5.url}}">
+										{%endif%}
+										{%endif%}
+																				
+										{%if post.image6%}
+										{%if post.descripcion_imagen6%}
+										<img src="{{post.image6.url}}" data-caption="{{post.descripcion_imagen6}}">
+										{%else%}
+										<img src="{{post.image6.url}}">
+										{%endif%}
+										{%endif%}
+																				
+										{%if post.image7%}
+										{%if post.descripcion_imagen7%}
+										<img src="{{post.image7.url}}" data-caption="{{post.descripcion_imagen7}}">
+										{%else%}
+										<img src="{{post.image7.url}}">
+										{%endif%}
+										{%endif%}
+																				
+										{%if post.image8%}
+										{%if post.descripcion_imagen8%}
+										<img src="{{post.image8.url}}" data-caption="{{post.descripcion_imagen8}}">
+										{%else%}
+										<img src="{{post.image8.url}}">
+										{%endif%}
+										{%endif%}
+																				
+										{%if post.image9%}
+										{%if post.descripcion_imagen9%}
+										<img src="{{post.image9.url}}" data-caption="{{post.descripcion_imagen9}}">
+										{%else%}
+										<img src="{{post.image9.url}}">
+										{%endif%}
+										{%endif%}
+																				
+										{%if post.image10%}
+										{%if post.descripcion_imagen10%}
+										<img src="{{post.image10.url}}" data-caption="{{post.descripcion_imagen10}}">
+										{%else%}
+										<img src="{{post.image10.url}}">
+										{%endif%}
+										{%endif%}
+																				
+										{%if post.image11%}
+										{%if post.descripcion_imagen11%}
+										<img src="{{post.image11.url}}" data-caption="{{post.descripcion_imagen11}}">
+										{%else%}
+										<img src="{{post.image11.url}}">
+										{%endif%}
+										{%endif%}
+									  </div>
+									
+									
+								
+							</div>
+								{%else%}
 							{% if post.linkyoutube %}
 							<p>Disfruta un adelanto de video</p>
 						<div class="embed-container">
-
-
 									<iframe width="560" height="315" src="{{post.linkyoutube}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
 						</div>
 						{%endif%}
+						{%endif%}
+						<article>
 							<footer>
 								<div class="col">
 									<ul class="tags">

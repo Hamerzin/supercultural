@@ -27,6 +27,10 @@ STATUS = (
     (0,"Draft"),
     (1,"Publish")
 )
+ENTREVISTA = (
+    (False,"No"),
+    (True,"Si"),
+)
 class Teatros(models.Model):
     name=models.CharField(max_length=250)
     tel=models.IntegerField(blank=True, null=True)
@@ -63,6 +67,7 @@ class Post(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    es_entrevista= models.BooleanField(choices=ENTREVISTA, default=False)
     teatro=models.ManyToManyField('Teatros', related_name='teatros', default='1',blank=True, null=True)
     cine=  models.ManyToManyField('Cines', related_name='cines',blank=True, null=True)
     categories = models.ManyToManyField('Category_post', related_name='posts')
@@ -106,7 +111,7 @@ class Post(models.Model):
   
 class UserFavorites(models.Model):
     user=models.ForeignKey(User, on_delete= models.CASCADE, related_name='user_fav')
-    favoritos=models.ForeignKey(Post,on_delete= models.CASCADE, related_name='user_fav')
+    favoritos= models.ManyToManyField('Post', related_name='favorites',blank=True)
 
 
 class Comment(models.Model):

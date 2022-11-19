@@ -1,0 +1,197 @@
+{% extends "nav.html" %}
+
+{% load static  %}
+
+{% block contenidoQueCambia %}
+{% load crispy_forms_tags %} 
+
+		<section class="login first grey">
+			<div class="container">
+				<div class="box-wrapper">				
+					<div class="box box-border">
+						<div class="box-body">
+							{%if not request.user.is_authenticated %}
+							<h4>Login</h4>
+							{{mensaje}}
+							
+							<form method="post"> {%csrf_token%}
+								<div class="form-group">
+									<label>Username</label>
+									<input type="text" name="username" class="form-control">
+								</div>
+								<div class="form-group">
+									<label class="fw">Password
+										<a href="{%url 'password_reset'%}" class="pull-right">Perdio contraseña??</a>
+									</label>
+									<input type="password" name="password" class="form-control">
+								</div>
+								<div class="form-group text-right">
+									<button class="btn btn-primary btn-block">Login</button>
+								</div>
+								<div class="form-group text-center">
+									<span class="text-muted">No tenes cuenta?</span> <a href="{%url 'register'%}">Crea una</a>
+								</div>
+								<div class="title-line">
+									or
+								</div>
+								
+								<fb:login-button 
+  scope="public_profile,email"
+  onlogin="checkLoginState();" class="btn btn-social btn-block facebook" >
+</fb:login-button>
+              	
+							</form>
+						</div>
+					</div>
+					{%else%}
+
+					<h1>usted ya este logueado</h1>
+					{%endif%}
+				</div>
+			</div>
+		</section>
+	
+		
+
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Super Cultural</h1>
+							<div class="block-body">
+								<figure class="foot-logo">
+									<img src="{% static 'images/logo2.jpeg'%}" class="img-responsive" alt="Logo">
+								</figure>
+								<p class="brand-description">
+									Espectaculos y Eventos &amp; Toda la info sobre Rosario y zona.
+								</p>
+								<a href="{%url 'contact'%}" class="btn btn-magz white">Sobre nosotros <i class="ion-ios-arrow-thin-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Tags Populares<div class="right"><a href="{%url 'todo'%}">Ver todo <i class="ion-ios-arrow-thin-right"></i></a></div></h1>
+							<div class="block-body">
+								<ul class="tags">
+									{%for cat in categoria%}
+
+										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+										{%endfor%}
+
+								</ul>
+							</div>
+						</div>
+						<div class="line"></div>
+
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="block">
+							<h1 class="block-title">Ultimos eventos</h1>
+							<div class="block-body">
+
+
+													{% for post in page_obj %}
+								<article class="article-mini">
+									<div class="inner">
+										<figure>
+											<a href="{% url 'detail' post.slug %}">
+												<img src="{{ post.image.url }}" alt="Sample Article">
+											</a>
+										</figure>
+										<div class="padding">
+											<h1><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h1>
+										</div>
+									</div>
+								</article>
+								{%endfor%}
+								<a href="{%url 'todo'%}" class="btn btn-magz white btn-block">Ver todo <i class="ion-ios-arrow-thin-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-12 col-sm-6">
+						<div class="block">
+							<h1 class="block-title">Seguinos</h1>
+							<div class="block-body">
+								<p>Seguinos en nustras redes y m</p>
+								<ul class="social trp">
+									<li>
+										<a href="https://www.facebook.com/supercultural2022/" class="facebook" target="_blank">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-facebook"></i>
+										</a>
+									</li>
+
+									<li>
+										<a href="#" class="youtube">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-youtube-outline"></i>
+										</a>
+									</li>
+
+									<li>
+										<a href="https://www.instagram.com/super.cultural/" class="instagram" target="_blank">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-instagram-outline"></i>
+										</a>
+									</li>
+
+									<li>
+										<a href="#" class="linkedin">
+											<svg><rect width="0" height="0"/></svg>
+											<i class="ion-social-linkedin"></i>
+										</a>
+									</li>
+
+
+								</ul>
+							</div>
+						</div>
+						<div class="line"></div>
+						<div class="block">
+							<div class="block-body no-margin">
+								<ul class="footer-nav-horizontal">
+									<li><a href="index.html">Home</a></li>
+									<li><a href="#">Partner</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="page.html">About</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="copyright">
+							COPYRIGHT &copy;Todo los Derechos Reservados
+							<div>
+								Diseñado  <i class="ion-heart"></i> por <a href="https://www.linkedin.com/in/fabian-di-paolo" target="_blank">DiPA Dev</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- End Footer -->
+
+		<!-- JS -->
+		<script src="{% static 'js/jquery.js'%}"></script>
+		<script src="{% static 'js/jquery.migrate.js'%}"></script>
+		<script src="{% static 'scripts/bootstrap/bootstrap.min.js'%}"></script>
+		<script>var $target_end=$(".best-of-the-week");</script>
+		<script src="{% static 'scripts/jquery-number/jquery.number.min.js'%}"></script>
+		<script src="{% static 'scripts/owlcarousel/dist/owl.carousel.min.js'%}"></script>
+		<script src="{% static 'scripts/magnific-popup/dist/jquery.magnific-popup.min.js'%}"></script>
+		<script src="{% static 'scripts/easescroll/jquery.easeScroll.js'%}"></script>
+		<script src="{% static 'scripts/sweetalert/dist/sweetalert.min.js'%}"></script>
+		<script src="{% static 'scripts/toast/jquery.toast.min.js'%}"></script>
+		<script src="{% static 'js/demo.js'%}"></script>
+		<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce="0v2F1ojE"></script>
+		<script src="{% static 'js/e-magz.js'%}"></script>
+		<script src="{% static 'js/platform.js'%}"></script>
+		<div id="fb-root"></div>
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce="dNzaDOEu"></script>
+	</body>
+{%endblock%}

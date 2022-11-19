@@ -45,6 +45,8 @@ ALLOWED_HOSTS = ["127.0.0.1:8000","127.0.0.1","supercultural.com.ar/","www.super
 # Application definition
 
 INSTALLED_APPS = [
+    'blog',
+    'login',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,13 +54,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    'blog',
     'django_summernote',
     'crispy_forms',
     'embed_video',
-    'login',
     'gallery',
     'django_social_share',
+    
+    
     
 ]
 # Base url to serve media files

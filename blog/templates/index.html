@@ -76,7 +76,7 @@
 									<ul>
 										{%for cat in categoria%}
 
-										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}&nbsp;</a></li>
 										{%endfor%}
 										<li><a href="{% url 'contact' %}">Contacto</a></li>
 									</ul>
@@ -128,10 +128,10 @@
 									<li class="dropdown magz-dropdown">
 										<a href="#">Perfil usuario <i class="ion-ios-arrow-right"></i></a>
 										<ul class="dropdown-menu">
-											<li><a href="login.html">Login</a></li>
-											<li><a href="register.html">Registro</a></li>
-											<li><a href="forgot.html">Perdio su contraseña</a></li>
-											<li><a href="reset.html">Reset Password</a></li>
+											<li><a href="{%url 'login'%}">Login</a></li>
+											<li><a href="{%url 'register'%}">Registro</a></li>
+											<li><a href="{%url 'password_reset'%}">Perdio su contraseña</a></li>
+											
 										</ul>
 									</li>
 
@@ -145,7 +145,7 @@
 									<li><a href="{% url 'todo' %}">Todo</a></li>
 									{%for cat in categoria%}
 
-									<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+									<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}&nbsp;</a></li>
 									{%endfor%}
 
 
@@ -186,7 +186,7 @@
 																<div class="detail">
 																	<div class="time">{{ post.created_on | timesince }}</div>
 																	{% for category_post in post.categories.all %}
-                            									<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></div>
+                            									<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}&nbsp;</a></div>
 																{% endfor %}
 
 																</div>
@@ -203,8 +203,8 @@
 							</li>
 							<li class="dropdown magz-dropdown"><a href="#">Extras<i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
-									<li><a href="#"><i class="icon ion-person"></i> Coberturas</a></li>
-									<li><a href="#"><i class="icon ion-person"></i> Galeria</a></li>
+									<li><a href="/Coberturas/"><i class="icon ion-person"></i> Coberturas</a></li>
+									<li><a href="{%url 'gallery'%}"><i class="icon ion-person"></i> Galeria</a></li>
 									<li><a href="{%url 'rosario'%}"><i class="icon ion-heart"></i> La ciudad</a></li>
 									<li><a href="#"><i class="icon ion-heart"></i> Teatros </a></li>
 									<li><a href="#"><i class="icon ion-heart"></i> Artistas locales </a></li>
@@ -268,7 +268,7 @@
 									<div class="details">
 										{% for category_post in post.categories.all %}
 
-													<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></div>
+													<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}&nbsp;</a></div>
 
 							{% endfor %}
 
@@ -297,7 +297,7 @@
 										<div class="detail">
 
 											{% for category_post in post.categories.all %}
-												<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}</a></div>
+												<div class="category"><a href="{% url 'blog_category' category_post.name %}">{{ category_post.name }}&nbsp;</a></div>
 												{% endfor %}
 											<div class="time">{{post.created_on|timesince }}</div>
 										</div>
@@ -473,7 +473,7 @@
 								<ul class="tags">
 									{%for cat in categoria%}
 
-										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}</a></li>
+										<li><a href="{% url 'blog_category' cat.name %}">{{cat.name}}&nbsp;</a></li>
 										{%endfor%}
 
 								</ul>
